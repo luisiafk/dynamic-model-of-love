@@ -1,0 +1,74 @@
+==========================================
+PYTHON & BYTE-COMPILED ARTIFACTS
+==========================================
+pycache/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+==========================================
+VIRTUAL ENVIRONMENTS (uv por defecto usa .venv)
+==========================================
+.venv/
+venv/
+ENV/
+env/
+
+==========================================
+UV CACHE LOCAL (si aplica)
+==========================================
+.uv_cache/
+
+
+==========================================
+TESTING & COVERAGE
+==========================================
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+
+==========================================
+LINTING & TYPE CHECKING CACHES
+==========================================
+.mypy_cache/
+.ruff_cache/
+.pytype/
+
+
+==========================================
+JUPYTER NOTEBOOKS
+==========================================
+.ipynb_checkpoints
+
+
+==========================================
+BUILD & DISTRIBUTION
+==========================================
+build/
+dist/
+wheels/
+*.egg-info/
+.installed.cfg *.egg
+
+
+==========================================
+PROYECTO: RESULTADOS Y CARPETAS DE SALIDA
+(Ignora el contenido pero preserva la estructura con .gitkeep)
+==========================================
+results/figures/*
+results/simulations/*
+results/reports/*
+!results/**/.gitkeep
+
+==========================================
+IDEs, EDITORES Y SISTEMA OPERATIVO
+==========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store Thumbs.db
