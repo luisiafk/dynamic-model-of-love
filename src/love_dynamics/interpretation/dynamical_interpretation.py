@@ -3,11 +3,11 @@ from typing import Dict, Any
 
 def analyze_dyadic_relationship(a: float, b: float, c: float, d:float) -> Dict[str, Any]:
     tr = a + d #Traza de la matriz A
-    det = a * c - b * d #Determinante de la matriz A
+    det = a * d - b * c #Determinante de la matriz A
     discriminant = tr**2 - 4 * det # Discriminante del polinomio caracterisitco
 
     matrix = np.array([[a, b], [c, d]], dtype=float)
-    eigenvalues = np.linalg,eigvals(matrix)
+    eigenvalues = np.linalg.eigvals(matrix)
 
     if det < 0:
         classification = "Saddle Point"
