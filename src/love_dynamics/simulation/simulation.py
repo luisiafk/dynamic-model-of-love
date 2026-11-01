@@ -265,8 +265,6 @@ class LoveSimulator:
             from scipy.integrate import solve_ivp
         except ImportError as exc:
             raise ImportError(
-                "scipy es necesario para simulate_nonlinear. "
-                "Instálalo con: uv sync o pip install scipy"
             ) from exc
 
         t0, tf = float(t_span[0]), float(t_span[1])
