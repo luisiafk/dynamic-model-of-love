@@ -1,0 +1,32 @@
+\section{Derivación del Modelo}
+
+\subsection{Modelo lineal simple de dos personas}
+Siguiendo la propuesta analítica inicial de Strogatz (1994) y el desarrollo formal de Sprott (2004), la dinámica de una relación romántica puede describirse mediante un sistema de ecuaciones diferenciales ordinarias acopladas. Consideremos un romance entre dos individuos, Romeo y Julieta. Se define:
+\begin{itemize}
+    \item $R(t)$: El nivel de amor (o de odio, si adquiere valores negativos) que siente Romeo hacia Julieta en el instante de tiempo $t$.
+    \item $J(t)$: El nivel de amor o reciprocidad que siente Julieta hacia Romeo en ese mismo instante $t$.
+\end{itemize}
+
+El modelo lineal más simple que gobierna la evolución de estos sentimientos se plantea a través del siguiente sistema de primer orden:
+\begin{equation}
+    \begin{aligned}
+        \frac{dR}{dt} &= aR + bJ \\
+        \frac{dJ}{dt} &= cR + dJ
+    \end{aligned}
+    \quad \text{(1)}
+\end{equation}
+
+\subsection{Significado de los parámetros y estilos románticos}
+En el sistema (1), los coeficientes $a$ y $b$ especifican el ``estilo romántico'' de Romeo, mientras que los parámetros $c$ y $d$ determinan el estilo correspondiente a Julieta. 
+\begin{itemize}
+    \item \textbf{Inercia conductual ($a$ y $d$):} El parámetro $a$ describe el grado en que Romeo es estimulado o desalentado por sus propios sentimientos previos. Gottman et al. (2002) denominan a este comportamiento ``inercia conductual''.
+    \item \textbf{Función de influencia ($b$ y $c$):} El parámetro $b$ representa el grado en que Romeo se ve motivado o afectado por los sentimientos o muestras de afecto de Julieta. 
+\end{itemize}
+
+Dependiendo de los signos algebraicos que adopten los parámetros de inercia e influencia ($a$ y $b$), los individuos se clasifican en cuatro arquetipos o \textbf{estilos románticos} fundamentales:
+\begin{enumerate}
+    \item \textbf{Eager beaver (Entusiasta):} $a > 0$, $b > 0$. El individuo se ve animado tanto por sus propios sentimientos como por los de su pareja.
+    \item \textbf{Narcissistic nerd (Nerd narcisista):} $a > 0$, $b < 0$. El individuo desea intensificar lo que siente, pero se retrae ante las muestras de afecto del otro.
+    \item \textbf{Cautious lover (Amante cauteloso o seguro):} $a < 0$, $b > 0$. El individuo tiende a reprimir sus propios sentimientos, pero se muestra altamente receptivo al afecto de su pareja.
+    \item \textbf{Hermit (Ermitaño):} $a < 0$, $b < 0$. El individuo se retrae tanto de sus propios sentimientos internos como de los de la otra parte.
+\end{enumerate}
