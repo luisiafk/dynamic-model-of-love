@@ -79,13 +79,13 @@ source .ven/bin/activate
 
 To launch the Streamlit dashboard and explore the dynamical models visually:
 
--With the venv active
+- With the venv active
 
 ```bash
 streamlit run app/main.py
 ```
 
--Other option
+- Other option
 
 ```bash
 uv run streamlit run app/main
