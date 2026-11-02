@@ -72,3 +72,28 @@ IDEs, EDITORES Y SISTEMA OPERATIVO
 *.swp
 *.swo
 .DS_Store Thumbs.db
+
+===================================================
+Archivos auxiliares de LaTeX y Archivos temporales
+===================================================
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.lof
+*.lot
+*.nav
+*.snm
+*.vrb
+*.xdv
+
+*.bak
+*.swp
+*~
