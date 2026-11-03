@@ -87,7 +87,7 @@ def main():
     # Guardar figura 1
     fig1 = Task4Plotter.plot_time_series(
         linear_results,
-        title="Series temporales R(t), J(t) - Sistema lineal con Euler",
+        title="Evolución temporal de los sentimientos R(t), J(t) según el estilo amoroso (método de Euler)",
         figsize=(14, 10),
         save_path=str(figs_dir / "01_series_temporales_lineal_euler.png"),
     )
@@ -149,7 +149,7 @@ def main():
         # Series temporales no lineal
         fig3_ts = Task4Plotter.plot_time_series_nonlinear(
             nonlinear_results,
-            title="Series temporales modelo no lineal con solve_ivp",
+            title="Evolución temporal de R(t), J(t) en el modelo no lineal (integración numérica adaptativa)",
             figsize=(14, 6),
             save_path=str(figs_dir / "03a_series_temporales_nolineal_solveivp.png"),
         )
@@ -158,7 +158,7 @@ def main():
         # Plano fase numérico no lineal
         fig3_ph = Task4Plotter.plot_phase_plane_nonlinear(
             nonlinear_results,
-            title="Plano fase numérico R vs J - Modelo no lineal con solve_ivp",
+            title="Trayectoria numérica en el plano (R,J): cómo se relacionan ambos sentimientos (integración adaptativa)",
             figsize=(10, 8),
             save_path=str(figs_dir / "03b_plano_fase_numerico_nolineal_solveivp.png"),
         )

@@ -69,7 +69,7 @@ class Task4Plotter:
         figsize: Tuple[float, float] = (10, 8),
         save_path: Optional[str] = None,
     ) -> plt.Figure:
-        """Gráfica 3: Plano fase numérico del modelo no lineal con solve_ivp."""
+        """Plano fase numérico del modelo no lineal con integración numérica adaptativa."""
         fig, ax = plt.subplots(figsize=figsize)
         fig.suptitle(title, fontsize=14, fontweight="bold")
 
@@ -102,7 +102,7 @@ class Task4Plotter:
     @staticmethod
     def plot_time_series_nonlinear(
         results: Dict[str, SimulationResult],
-        title: str = "Series temporales modelo no lineal",
+        title: str = "Series temporales modelo no lineal - Integración numérica con método adaptativo",
         figsize: Tuple[float, float] = (12, 6),
         save_path: Optional[str] = None,
     ) -> plt.Figure:
