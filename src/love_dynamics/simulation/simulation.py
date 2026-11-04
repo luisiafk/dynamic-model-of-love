@@ -136,6 +136,7 @@ class LoveSimulator:
         y0: np.ndarray | list[float],
         t_span: Tuple[float, float],
         dt: float,
+        analytical_fn: Callable[..., np.ndarray] = analytical_solution_linear_2d,
     ) -> Dict[str, Any]:
         """Compara integración de Euler contra la solución analítica de Task 2.
 
@@ -157,6 +158,10 @@ class LoveSimulator:
             Intervalo de integración.
         dt : float
             Paso de tiempo para Euler.
+        analytical_fn : callable, opcional
+            Función que devuelve la solución analítica con la firma
+            ``analytical_fn(a, b, c, d, y0, t_eval) -> np.ndarray``.
+            Por defecto usa ``analytical_solution_linear_2d`` de Task 2.
 
         Retorna
         -------
@@ -175,10 +180,10 @@ class LoveSimulator:
         n_steps = int(np.ceil((tf - t0) / dt)) + 1
         t_eval = np.linspace(t0, tf, n_steps)
 
-        y_analytical = analytical_solution_linear_2d(a, b, c, d, y0, t_eval)
+        y_analytical = analytical_fn(a, b, c, d, y0, t_eval)
         if y_analytical.shape != (2, n_steps):
             raise ValueError(
-                f"analytical_solution_linear_2d devolvió shape {y_analytical.shape}, "
+                f"La función analítica devolvió shape {y_analytical.shape}, "
                 f"se esperaba (2, {n_steps})."
             )
 
