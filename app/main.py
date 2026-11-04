@@ -19,12 +19,12 @@ st.markdown(
 )
 
 st.sidebar.subheader("Coeficientes de Romeo")
-a = st.sidebar.slider("Reaccion a su propio pasado ($a$)", -2.0, 2.0, 1.0, 0.1)
-b = st.sidebar.slider("Reaccion a Julieta ($b$)", -2.0, 2.0, 1.0, 0.1)
+a = st.sidebar.slider("Influencia de los sentimientos propios de Romeo ($a$)", -2.0, 2.0, 1.0, 0.1)
+b = st.sidebar.slider("Influencia de los sentimientos sobre Julieta ($b$)", -2.0, 2.0, 1.0, 0.1)
 
 st.sidebar.subheader("Coeficientes de Julieta")
-c = st.sidebar.slider("Reaccion a Romeo ($c$)", -2.0, 2.0, 1.0, 0.1)
-d = st.sidebar.slider("Reaccion a su propio pasado ($d$)", -2.0, 2.0, 1.0, 0.1)
+c = st.sidebar.slider("Influencia de los sentimientos sobre Romeo ($c$)", -2.0, 2.0, 1.0, 0.1)
+d = st.sidebar.slider("Influencia de los propios sentimientos de Julieta ($d$)", -2.0, 2.0, 1.0, 0.1)
 
 st.sidebar.markdown("---")
 st.sidebar.header("Condiciones Iniciales ($t=0$)")
@@ -117,6 +117,48 @@ with col_plot2:
     ax_phase.legend()
     ax_phase.grid(True, linestyle=":", alpha=0.6)
     st.pyplot(fig_phase)
+
+st.markdown("---")
+st.subheader("Retrato de Fase y Topologia sel sistema (Sprott, 2004)")
+st.markdown(
+    "Este grafico muestra el **campo vectorial** completo en el plano de fase $(R, J)$ "
+    "junto con la trayectoria especifica de la pareja. Dependiendo de los coeficientes, "
+    "podras apreciar visualmente si se forma un **Foco** (espiral), un **Nodo** o un **Punto Silla**."
+)
+
+fig_topo, ax_topo = plt.subplots(figsize=(8,6))
+
+r_range = np.linspace(-6, 6, 25)
+j_range = np.linspace(-6, 6, 25)
+RR, JJ = np.meshgrid(r_range, j_range)
+
+DR_dt = a * RR + b * JJ
+DJ_dt = c * RR + d * JJ
+
+stream = ax_topo.streamplot(
+    RR, JJ, DR_dt, DJ_dt,
+    color=np.sqrt(DR_dt**2 + DJ_dt**2),
+    cmap="plasma",
+    density=1.2,
+    arrowsize=1.2
+)
+
+ax_topo.plot(r_vals, j_vals, color="blue", linewidth=3, label="Trayectoria temporal (R, J)")
+ax_topo.scatter([r0], [j0], color="green", s=80, zorder=5, label="Condicion Inicial ($R_0, J_0$)")
+
+ax_topo.axhline(0, color="white", linestyle="--", alpha=0.4)
+ax_topo.axvline(0, color="white", linestyle="--", alpha=0.4)
+ax_topo.set_xlim(-6, 6)
+ax_topo.set_ylim(-6, 6)
+ax_topo.set_xlabel("Amor / Odio de Romeo ($R$)", color="black")
+ax_topo.set_ylabel("Amor / Odio de Julieta ($R$)", color="black")
+ax_topo.set_title(f"Topologia Local: {analysis['classification']}")
+ax_topo.legend(loc="upper right")
+ax_topo.grid(True, linestyle=":", alpha=0.3)
+
+st.pyplot(fig_topo)
+
+
 
 
 
