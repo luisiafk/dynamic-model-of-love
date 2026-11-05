@@ -8,7 +8,7 @@ a Task 4 (simulación numérica). No toca qualitative/ ni interpretation/.
 from __future__ import annotations
 
 import os
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -58,6 +58,114 @@ class Task4Plotter:
         plt.tight_layout()
         if save_path:
             os.makedirs(os.path.dirname(save_path), exist_ok=True)
+            fig.savefig(save_path, dpi=300, bbox_inches="tight")
+            print(f"[Task4Plotter] Guardado: {save_path}")
+        return fig
+
+    @staticmethod
+    def plot_euler_vs_analytical(
+        comparison: Dict[str, Any],
+        title: str = "Comparación Euler vs. Ejercicio 2",
+        analytical_label: str = "Ejercicio 2",
+        figsize: Tuple[float, float] = (12, 8),
+        save_path: Optional[str] = None,
+    ) -> plt.Figure:
+        """Gráfica comparativa entre Euler y la solución analítica de Task 2.
+
+        ``comparison`` debe ser el diccionario devuelto por
+        ``LoveSimulator.compare_euler_vs_analytical`` y contener, al menos,
+        ``t``, ``y_euler`` y ``y_analytical``.
+        """
+        required_keys = {"t", "y_euler", "y_analytical"}
+        missing = required_keys.difference(comparison)
+        if missing:
+            raise KeyError(
+                f"Faltan claves en comparison: {', '.join(sorted(missing))}"
+            )
+
+        t = np.asarray(comparison["t"], dtype=float)
+        y_euler = np.asarray(comparison["y_euler"], dtype=float)
+        y_analytical = np.asarray(comparison["y_analytical"], dtype=float)
+
+        if y_euler.shape != (2, t.size) or y_analytical.shape != (2, t.size):
+            raise ValueError(
+                "Se esperaban y_euler e y_analytical con shape "
+                f"(2, {t.size}); recibido {y_euler.shape} y "
+                f"{y_analytical.shape}."
+            )
+
+        if "error_abs" in comparison:
+            error_abs = np.asarray(comparison["error_abs"], dtype=float)
+        else:
+            error_abs = np.abs(y_euler - y_analytical)
+
+        error_max_R = float(np.max(error_abs[0]))
+        error_max_J = float(np.max(error_abs[1]))
+        error_mean_R = float(np.mean(error_abs[0]))
+        error_mean_J = float(np.mean(error_abs[1]))
+
+        fig, axes = plt.subplots(2, 2, figsize=figsize)
+        fig.suptitle(title, fontsize=14, fontweight="bold")
+
+        axes[0, 0].plot(
+            t, y_euler[0], label="Euler", color="blue", linewidth=1.8
+        )
+        axes[0, 0].plot(
+            t,
+            y_analytical[0],
+            label=analytical_label,
+            color="orange",
+            linestyle="--",
+            linewidth=1.8,
+        )
+        axes[0, 0].set_title("R(t): Euler vs. solución analítica")
+        axes[0, 0].set_xlabel("t")
+        axes[0, 0].set_ylabel("R(t)")
+        axes[0, 0].grid(True, alpha=0.3)
+        axes[0, 0].legend()
+
+        axes[0, 1].plot(
+            t, y_euler[1], label="Euler", color="red", linewidth=1.8
+        )
+        axes[0, 1].plot(
+            t,
+            y_analytical[1],
+            label=analytical_label,
+            color="green",
+            linestyle="--",
+            linewidth=1.8,
+        )
+        axes[0, 1].set_title("J(t): Euler vs. solución analítica")
+        axes[0, 1].set_xlabel("t")
+        axes[0, 1].set_ylabel("J(t)")
+        axes[0, 1].grid(True, alpha=0.3)
+        axes[0, 1].legend()
+
+        axes[1, 0].plot(t, error_abs[0], color="purple", linewidth=1.5)
+        axes[1, 0].set_title("Error absoluto en R(t)")
+        axes[1, 0].set_xlabel("t")
+        axes[1, 0].set_ylabel("|R_Euler - R_analítico|")
+        axes[1, 0].grid(True, alpha=0.3)
+
+        axes[1, 1].plot(t, error_abs[1], color="brown", linewidth=1.5)
+        axes[1, 1].set_title("Error absoluto en J(t)")
+        axes[1, 1].set_xlabel("t")
+        axes[1, 1].set_ylabel("|J_Euler - J_analítico|")
+        axes[1, 1].grid(True, alpha=0.3)
+
+        summary = (
+            f"Error máximo R: {error_max_R:.3e}    "
+            f"Error medio R: {error_mean_R:.3e}\n"
+            f"Error máximo J: {error_max_J:.3e}    "
+            f"Error medio J: {error_mean_J:.3e}"
+        )
+        fig.text(0.5, 0.01, summary, ha="center", va="bottom", fontsize=9)
+
+        plt.tight_layout(rect=(0, 0.05, 1, 0.96))
+        if save_path:
+            output_dir = os.path.dirname(save_path)
+            if output_dir:
+                os.makedirs(output_dir, exist_ok=True)
             fig.savefig(save_path, dpi=300, bbox_inches="tight")
             print(f"[Task4Plotter] Guardado: {save_path}")
         return fig
