@@ -1,12 +1,18 @@
-\documentclass[12pt]{article}
-
+\documentclass[10pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
-\usepackage{amsmath, amssymb}
 \usepackage{geometry}
 \usepackage{enumitem}
-
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{hyperref}
 \geometry{margin=2.5cm}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\numberwithin{equation}{section}
 
 \title{Solución Analítica de los Modelos Dinámicos del Amor}
 \author{}
@@ -16,6 +22,7 @@
 
 \maketitle
 
+%---------------------------------------------Introduccion---------------------------------------------
 \section{Modelo Lineal: La pareja Romeo y Julieta}
 
 Para representar la evolución del amor entre la pareja de Romeo y Julieta con el paso del tiempo, se considera
@@ -60,10 +67,34 @@ J
 \end{pmatrix}.
 \end{equation}
 
-\subsection{Solución de Equilibrio}
-El origen $(0; 0)$ representa el único punto de equilibrio del modelo, por tanto $R(t) = 0$ y $J(t) = 0$ constituyen
-las soluciones triviales del sistema.
+Para solucionar el sistema anterior como un problema de valor inicial, se consideran las condiciones iniciales:
 
+\[
+R(0)=R_0,\qquad J(0)=J_0.
+\]
+%---------------------------------------------Equilibrio---------------------------------------------
+\subsection{Soluciones de Equilibrio}
+
+En el equilibrio se cumple $R'=J'=0$, por lo que
+
+\[
+\begin{cases}
+aR^*+bJ^*=0,\\
+cR^*+dJ^*=0.
+\end{cases}
+\]
+
+Calculamos el determinante de la matriz del sistema: $\det(A)=ad-bc$. Se presentan tres casos:
+
+\begin{itemize}
+    \item Si $ad-bc\neq 0$, existe un único punto de equilibrio: $E_0=(0,0)$.
+
+    \item Si $ad-bc=0$ y $A\neq 0$, existen infinitos
+    puntos de equilibrio sobre una recta que pasa por el origen.
+
+    \item Si $a=b=c=d=0$, todos los puntos del plano son puntos de equilibrio.
+\end{itemize}
+%---------------------------------------------Valores Propios---------------------------------------------
 \subsection{Hallar los valores propios}
 
 \begin{equation}
@@ -90,53 +121,233 @@ A partir de $(5)$ obtenemos el discriminante:
 Luego, los valores propios serán:
 
 \begin{equation}
-\lambda_{1, 2} = \frac{a + d \pm \sqrt{(a+d)^2-4(ad-bc)}}{2}
+\lambda_{1, 2} = \frac{a + d \pm \sqrt{\Delta}}{2}
 \end{equation}
 
 Debido a que los parámetros pueden ser negativos, positivos o nulos, puede suceder en consecuencia que el discriminante sea negativo,
-positivo o nulo. De aquí se derivan varios casos en los que varía la forma de la solución general.
-
+positivo o nulo. A continuación se desarrollan las soluciones según el signo del discriminante.
+%---------------------------------------------Valores propios reales distintos---------------------------------------------
 \subsection{Caso 1: $\Delta > 0 \Rightarrow$ Valores propios reales distintos}
 
-Si $\lambda_1 \neq \lambda_2$, buscamos los vectores propios
-$K_1$ y $K_2$ asociados respectivamente, los cuales serán l.i.
+Si $\Delta>0$ la matriz tiene dos valores propios reales distintos:
 
-La solución general es:
+\[
+\lambda_1=
+\frac{a+d+\sqrt{\Delta}}{2},
+\qquad
+\lambda_2=
+\frac{a+d-\sqrt{\Delta}}{2}.
+\]
 
-\begin{equation}
-Y(t)=c_1e^{\lambda_1t}K_1
-+c_2e^{\lambda_2t}K_2.
-\end{equation}
+Suponiendo $b\neq 0$, un vector propio asociado a cada valor propio puede escribirse como
 
+\[
+K_1=
+\begin{pmatrix}
+1\\
+\dfrac{\lambda_1-a}{b}
+\end{pmatrix},
+\qquad
+K_2=
+\begin{pmatrix}
+1\\
+\dfrac{\lambda_2-a}{b}
+\end{pmatrix}.
+\]
+
+La solución general es
+
+\[
+Y(t)=C_1e^{\lambda_1t}K_1
++C_2e^{\lambda_2t}K_2.
+\]
+
+Por lo tanto,
+
+\[
+R(t)=C_1e^{\lambda_1t}
++C_2e^{\lambda_2t},
+\]
+
+y
+
+\[
+J(t)=
+\frac{\lambda_1-a}{b}C_1e^{\lambda_1t}
++
+\frac{\lambda_2-a}{b}C_2e^{\lambda_2t}.
+\]
+
+Utilizando las condiciones iniciales,
+
+\[
+R_0=C_1+C_2,
+\]
+
+\[
+J_0=
+\frac{\lambda_1-a}{b}C_1
++
+\frac{\lambda_2-a}{b}C_2.
+\]
+
+Resolviendo el sistema para las constantes:
+
+\[
+C_1=
+\frac{bJ_0-(\lambda_2-a)R_0}
+{\lambda_1-\lambda_2},
+\]
+
+\[
+C_2=
+\frac{(\lambda_1-a)R_0-bJ_0}
+{\lambda_1-\lambda_2}.
+\]
+
+Como
+
+\[
+\lambda_1-\lambda_2=\sqrt{\Delta},
+\]
+
+obtenemos
+
+\[
+\boxed{
+C_1=
+\frac{bJ_0-(\lambda_2-a)R_0}
+{\sqrt{\Delta}}
+}
+\]
+
+y
+
+\[
+\boxed{
+C_2=
+\frac{(\lambda_1-a)R_0-bJ_0}
+{\sqrt{\Delta}}.
+}
+\]
+
+Por consiguiente, las soluciones explícitas son
+
+\[
+\boxed{
+R(t)=
+\frac{bJ_0-(\lambda_2-a)R_0}{\sqrt{\Delta}}
+e^{\lambda_1t}
++
+\frac{(\lambda_1-a)R_0-bJ_0}{\sqrt{\Delta}}
+e^{\lambda_2t}
+}
+\]
+
+y
+
+\[
+\boxed{
+\begin{aligned}
+J(t)={}&
+\frac{\lambda_1-a}{b}
+\frac{bJ_0-(\lambda_2-a)R_0}{\sqrt{\Delta}}
+e^{\lambda_1t}\\
+&+
+\frac{\lambda_2-a}{b}
+\frac{(\lambda_1-a)R_0-bJ_0}{\sqrt{\Delta}}
+e^{\lambda_2t}.
+\end{aligned}
+}
+\]
+
+Estas expresiones corresponden al caso $b\neq 0$. Si $b=0$, se puede utilizar directamente la ecuación
+$R'=aR$ y resolver después la ecuación para $J$.
+%---------------------------------------------Valor propio repetido---------------------------------------------
 \subsection{Caso 2: $\Delta = 0 \Rightarrow$ Valor propio repetido}
 
-Si $\lambda_1=\lambda_2=\lambda$, existen dos posibilidades.
+Si $\Delta=0$ existe un valor propio real doble:
 
-\textbf{Dos vectores propios (l.i.):}
+\[
+\boxed{
+\lambda=\frac{a+d}{2}.
+}
+\]
 
-\begin{equation}
-Y(t)=c_1e^{\lambda t}K_1 + c_2e^{\lambda t}K_2
-\end{equation}
+Definimos la matriz $N=A-\lambda I$. Entonces,
 
-\textbf{Un solo vector propio:}
+\[
+N=
+\begin{pmatrix}
+\dfrac{a-d}{2}&b\\[4pt]
+c&-\dfrac{a-d}{2}
+\end{pmatrix}.
+\]
 
-Buscamos un vector propio generalizado $P$ que satisfaga:
+Como el valor propio es doble, se cumple $N^2=0$. La solución del sistema es
 
-\begin{equation}
-(A-\lambda I)P=K.
-\end{equation}
+\[
+Y(t)=e^{\lambda t}(I+tN)Y(0).
+\]
 
-La solución general es:
+Al desarrollar la expresión matricial:
 
-\begin{equation}
-Y(t)=c_1e^{\lambda t}K
-+c_2e^{\lambda t}(tK+P).
-\end{equation}
+\[
+\begin{pmatrix}
+R(t)\\
+J(t)
+\end{pmatrix}
+=
+e^{\lambda t}
+\begin{pmatrix}
+1+\dfrac{a-d}{2}t&bt\\[4pt]
+ct&1-\dfrac{a-d}{2}t
+\end{pmatrix}
+\begin{pmatrix}
+R_0\\
+J_0
+\end{pmatrix}.
+\]
 
+Por lo tanto,
+
+\[
+\boxed{
+R(t)=e^{\lambda t}
+\left[
+R_0+t\left(
+\frac{a-d}{2}R_0+bJ_0
+\right)
+\right]
+}
+\]
+
+y
+
+\[
+\boxed{
+J(t)=e^{\lambda t}
+\left[
+J_0+t\left(
+cR_0-\frac{a-d}{2}J_0
+\right)
+\right].
+}
+\]
+
+Si $A=\lambda I$, las expresiones se reducen a
+
+\[
+R(t)=R_0e^{\lambda t},
+\qquad
+J(t)=J_0e^{\lambda t}.
+\]
+%---------------------------------------------Valores propios complejos---------------------------------------------
 \subsection{Caso 3: $\Delta < 0 \Rightarrow$ Valores propios complejos}
 
-Si los valores propios son $\lambda=\alpha\pm i\beta$, y un vector propio complejo es $K = B_1 + iB_2$,
-obtenemos dos soluciones reales:
+Si $\Delta<0$ los valores propios son complejos conjugados $\lambda_{1,2}=\alpha\pm i\beta$, donde
+$\alpha=\frac{a+d}{2}$ y $\beta=\frac{\sqrt{-\Delta}}{2}$.
+Un vector propio complejo es $K = B_1 + iB_2$, obtenemos dos soluciones reales:
 
 \begin{equation}
 Y_1(t)=e^{\alpha t}
@@ -154,21 +365,393 @@ Por tanto, la solución general es:
 Y(t)=c_1Y_1(t)+c_2Y_2(t).
 \end{equation}
 
+Para la primera variable:
+
+\[
+\boxed{
+R(t)=e^{\alpha t}
+\left[
+R_0\cos(\beta t)
++
+\frac{
+\dfrac{a-d}{2}R_0+bJ_0
+}{\beta}
+\sin(\beta t)
+\right].
+}
+\]
+
+Para la segunda variable:
+
+\[
+\boxed{
+J(t)=e^{\alpha t}
+\left[
+J_0\cos(\beta t)
++
+\frac{
+cR_0-\dfrac{a-d}{2}J_0
+}{\beta}
+\sin(\beta t)
+\right].
+}
+\]
+
+La clasificación del equilibrio depende de $\alpha$:
+
+\begin{itemize}
+    \item Si $\alpha<0$, se obtiene un foco estable.
+    \item Si $\alpha>0$, se obtiene un foco inestable.
+    \item Si $\alpha=0$, se obtiene un centro.
+\end{itemize}
+
+%--------------------------------------------------------------------------------------------
 \section{Análisis de los casos particulares}
+
+En esta sección se presentarán casos particulares de los valores de los parámetros y se solucionarán sistemas con estas características.
+Las condiciones iniciales tratadas serán las mismas que se establecieron al inicio de este documento.
 
 \subsection{Caso 1: Out of touch ($a = d = 0$)}
 
 Este caso consiste en que Romeo y Julieta no responden a sus propios sentimientos, sino únicamente a los de la otra persona.
-En este caso se obtienen los valores propios: $\lambda_{1, 2} = \pm \sqrt{bc}$.
+El sistema queda
+
+\[
+\boxed{
+\begin{cases}
+R'=bJ,\\
+J'=cR.
+\end{cases}
+}
+\]
+
+Los valores propios son: $\lambda_{1,2}=\pm\sqrt{bc}$. Distinguimos tres situaciones.
+
+\subsubsection{Caso 1: $bc>0$}
+
+Definimos $s=\sqrt{bc}$. Los valores propios son: $ \lambda_1=\pm s$. La solución general puede escribirse como
+
+\[
+R(t)=C_1e^{st}+C_2e^{-st},
+\]
+
+\[
+J(t)=\frac{s}{b}C_1e^{st}
+-\frac{s}{b}C_2e^{-st}.
+\]
+
+Aplicando las condiciones iniciales:
+
+\[
+R_0=C_1+C_2,
+\]
+
+\[
+J_0=\frac{s}{b}C_1-\frac{s}{b}C_2.
+\]
+
+De aquí se obtiene
+
+\[
+C_1=\frac12\left(R_0+\frac{bJ_0}{s}\right),
+\]
+
+\[
+C_2=\frac12\left(R_0-\frac{bJ_0}{s}\right).
+\]
+
+Sustituyendo las constantes:
+
+\[
+\boxed{
+\begin{aligned}
+R(t)={}&
+\frac12\left(R_0+\frac{bJ_0}{s}\right)e^{st}\\
+&+
+\frac12\left(R_0-\frac{bJ_0}{s}\right)e^{-st}.
+\end{aligned}
+}
+\]
+
+Para $J(t)$:
+
+\[
+\boxed{
+\begin{aligned}
+J(t)={}&
+\frac12\left(J_0+\frac{cR_0}{s}\right)e^{st}\\
+&+
+\frac12\left(J_0-\frac{cR_0}{s}\right)e^{-st}.
+\end{aligned}
+}
+\]
+
+El equilibrio es un punto silla.
+
+\subsubsection{Caso 2: $bc<0$}
+
+Definimos $\omega=\sqrt{-bc}$. Los valores propios son: $\lambda_{1,2}=\pm i\omega$. Las soluciones reales son
+
+\[
+\boxed{
+R(t)=R_0\cos(\omega t)
++\frac{bJ_0}{\omega}\sin(\omega t)
+}
+\]
+
+y
+
+\[
+\boxed{
+J(t)=J_0\cos(\omega t)
++\frac{cR_0}{\omega}\sin(\omega t).
+}
+\]
+
+En este caso, el equilibrio es un centro y las trayectorias son periódicas.
+
+\subsubsection{Caso 3: $bc=0$}
+
+Los dos valores propios son iguales a cero. Entonces las soluciones son
+
+\[
+\boxed{
+R(t)=R_0+btJ_0
+}
+\]
+
+y
+
+\[
+\boxed{
+J(t)=J_0+ctR_0.
+}
+\]
+
+Se trata de un caso degenerado.
 
 \subsection{Caso 2: Fire and Ice ($c = -b$ y $a = -d$)}
 
 Este caso consiste en que Romeo y Julieta son opuestos exactos en su manera de responder.
-En este caso se obtienen los valores propios: $\lambda_{1, 2} = \pm \sqrt{a^2 - b^2}$.
+El sistema queda
+
+\[
+\boxed{
+\begin{cases}
+R'=aR+bJ,\\
+J'=-bR-aJ.
+\end{cases}
+}
+\]
+
+Los valores propios son $\lambda_{1,2}=\pm\sqrt{a^2-b^2}$.
+
+\subsubsection{Caso 1: $a^2>b^2$}
+
+Definimos $s=\sqrt{a^2-b^2}$. Los valores propios son $\lambda_1= \pm s$. La solución general es
+
+\[
+R(t)=C_1e^{st}+C_2e^{-st},
+\]
+
+\[
+J(t)=
+-\frac{a-s}{b}C_1e^{st}
+-\frac{a+s}{b}C_2e^{-st},
+\]
+
+cuando $b\neq 0$.
+
+Aplicando las condiciones iniciales, se obtiene la
+siguiente expresión explícita:
+
+\[
+\boxed{
+\begin{aligned}
+R(t)={}&
+\frac12\left[
+R_0+\frac{aR_0+bJ_0}{s}
+\right]e^{st}\\
+&+
+\frac12\left[
+R_0-\frac{aR_0+bJ_0}{s}
+\right]e^{-st}.
+\end{aligned}
+}
+\]
+
+Para la segunda variable:
+
+\[
+\boxed{
+\begin{aligned}
+J(t)={}&
+\frac12\left[
+J_0-\frac{bR_0+aJ_0}{s}
+\right]e^{st}\\
+&+
+\frac12\left[
+J_0+\frac{bR_0+aJ_0}{s}
+\right]e^{-st}.
+\end{aligned}
+}
+\]
+
+El equilibrio es un punto silla.
+
+\subsubsection{Caso 2: $a^2<b^2$}
+
+Definimos $\omega=\sqrt{b^2-a^2}$. Los valores propios son $\lambda_{1,2}=\pm i\omega$. Las soluciones reales son
+
+\[
+\boxed{
+R(t)=R_0\cos(\omega t)
++
+\frac{aR_0+bJ_0}{\omega}
+\sin(\omega t)
+}
+\]
+
+y
+
+\[
+\boxed{
+J(t)=J_0\cos(\omega t)
+-
+\frac{bR_0+aJ_0}{\omega}
+\sin(\omega t).
+}
+\]
+
+En este caso, el equilibrio es un centro.
+
+\subsubsection{Caso 3: $a^2=b^2$}
+
+Los dos valores propios son cero. Las soluciones son
+
+\[
+\boxed{
+R(t)=R_0+t(aR_0+bJ_0)
+}
+\]
+
+y
+
+\[
+\boxed{
+J(t)=J_0-t(bR_0+aJ_0).
+}
+\]
+
+Se obtiene un caso degenerado.
 
 \subsection{Caso 3: Peas in a Pod ($c = b$ y $a = d$)}
 
-Este caso consiste en que Romeo y Julieta son idénticos en su manera de responder.
-En este caso se obtienen los valores propios: $\lambda_{1, 2} = a \pm b$.
+Este caso consiste en que Romeo y Julieta son idénticos en su manera de responder. El sistema es
+
+\[
+\boxed{
+\begin{cases}
+R'=aR+bJ,\\
+J'=bR+aJ.
+\end{cases}
+}
+\]
+
+Los valores propios son $\lambda_1=a \pm b$. Los vectores propios asociados son
+
+\[
+K_1=
+\begin{pmatrix}
+1\\
+1
+\end{pmatrix},
+\qquad
+K_2=
+\begin{pmatrix}
+1\\
+-1
+\end{pmatrix}.
+\]
+
+La solución general es
+
+\[
+Y(t)=
+C_1e^{(a+b)t}
+\begin{pmatrix}
+1\\
+1
+\end{pmatrix}
++
+C_2e^{(a-b)t}
+\begin{pmatrix}
+1\\
+-1
+\end{pmatrix}.
+\]
+
+Por componentes:
+
+\[
+R(t)=C_1e^{(a+b)t}
++C_2e^{(a-b)t},
+\]
+
+\[
+J(t)=C_1e^{(a+b)t}
+-C_2e^{(a-b)t}.
+\]
+
+Aplicando las condiciones iniciales:
+
+\[
+R_0=C_1+C_2,
+\]
+
+\[
+J_0=C_1-C_2.
+\]
+
+Sumando y restando estas ecuaciones:
+
+\[
+C_1=\frac{R_0+J_0}{2},
+\qquad
+C_2=\frac{R_0-J_0}{2}.
+\]
+
+Por lo tanto, las soluciones explícitas son
+
+\[
+\boxed{
+R(t)=
+\frac{R_0+J_0}{2}e^{(a+b)t}
++
+\frac{R_0-J_0}{2}e^{(a-b)t}
+}
+\]
+
+y
+
+\[
+\boxed{
+J(t)=
+\frac{R_0+J_0}{2}e^{(a+b)t}
+-
+\frac{R_0-J_0}{2}e^{(a-b)t}.
+}
+\]
+
+La clasificación del equilibrio depende de los valores propios:
+
+\begin{itemize}
+    \item Si $|a|<|b|$, el equilibrio es un punto silla.
+    \item Si $a>|b|$, el equilibrio es un nodo inestable.
+    \item Si $a<-|b|$, el equilibrio es un nodo estable.
+    \item Si $a=b$ o $a=-b$, existe un valor propio nulo y se obtiene un caso degenerado.
+\end{itemize}
+
+%-------------------------------------------------------------------------------------------------------
 
 \end{document}
