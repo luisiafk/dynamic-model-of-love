@@ -1,0 +1,233 @@
+\documentclass[a4paper, 10pt]{article}
+% CUERPO
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\begin{document}
+\section{Analisis Cualitativo}
+\subsection{Clasificar los 16 estilos románticos}
+\ El análisis del comportamiento por signo se basa en la fórmula hallada.
+ Usando como base la fórmula: 
+$$ k1,k2 = \frac{(a+d) \pm \sqrt{(a+d)^2 -4(ad - bc)} }{2}$$
+se desprende el criterio traza-determinante:
+\begin{enumerate}
+\item Discriminante menor que 0 =$>$ Soluciones complejas (Foco)
+\begin{enumerate}
+\item (a+d) $>$ 0 =$>$ Inestable
+\item (a+d) $<$ 0 =$>$ Estable
+\end{enumerate}
+\item Discriminante mayor que 0 =$>$ Soluciones reales
+\begin{enumerate}
+ \item $|TrA|>|\sqrt{Disc}|$ =$>$ Nodo (Mismo signo)
+  \begin{enumerate}
+    \item $k1<0$ =$>$ Estable
+    \item $k1>0$ =$>$ Inestable
+  \end{enumerate}
+   \item $|TrA|<|\sqrt{Disc}|$ =$>$ Silla(Inestable)(Diferente signo)
+  \end{enumerate}
+\end{enumerate}
+Traza-Determinante:
+\begin{enumerate}
+    \item $det(A)<0$ =$>$ Silla
+    \item $det(A)>0$ y $\Delta<0$  =$>$ Foco
+    \item $det(A)>0$ y $\Delta>0$  =$>$ Nodo
+    \item $det(A)>0 $ y $\Delta=0$ =$>$ Nodo Degenerado
+    \item $det(A)>0 $, $TrA=0$ y $\Delta=0$ =$>$ Centro
+\end{enumerate}
+
+\subsubsection{$a>0,\ b>0,\ c>0,\ d>0$} 
+\ Si se cumple esta condicion, entonces la ecuacion resulta coincidente con el criterio; luego el análisis es análogo.
+\subsubsection{$a>0,\ b>0,\ c>0,\ d<0$} 
+\ Si el único negativo es d, luego la fórmula resulta en:
+$$ k1,k2 = \frac{(a-d) \pm \sqrt{(a-d)^2 -4(-ad - bc)} }{2}$$
+Luego el determinante es negativo, es una silla
+\subsubsection{$a>0,\ b>0,\ c<0,\ d>0$}
+Si c es menor que 0, entonces queda:
+$$ k1,k2 = \frac{(a+d) \pm \sqrt{(a+d)^2 -4(ad + bc)} }{2}$$
+Como el determinante es mayor que 0, nunca es una silla, por lo tanto depende del parametro, pudiendo ser nodo o foco
+\subsubsection{$a>0,\ b>0,\ c<0,\ d<0$} 
+Si c y d son menores que 0, entonces:
+$$ k1,k2 = \frac{(a-d) \pm \sqrt{(a-d)^2 -4(-ad +bc)} }{2}$$
+Este caso depende del valor de los parametros, luego se ajusta al criterio inicial
+\subsubsection{$a>0,\ b<0,\ c>0,\ d>0$}
+Si b es negativo tenemos:
+$$ k1,k2 = \frac{(a+d) \pm \sqrt{(a+d)^2 -4(ad + bc)} }{2}$$
+Luego como el determinante es positivo, nunca es una silla, el analisis depende del parametro, pudiendo ser nodo o foco
+\subsubsection{$a>0,\ b<0,\ c>0,\ d<0$}
+Si b y d son menores que 0, entonces la formula es:
+$$ k1,k2 = \frac{(a-d) \pm \sqrt{(a-d)^2 -4(-ad + bc)} }{2}$$
+Esta formula es analoga a c y d menores que 0
+\subsubsection{$a>0,\ b<0,\ c<0,\ d>0$} 
+Si b y c son negativos, entonces:
+ $$ k1,k2 = \frac{(a+d) \pm \sqrt{(a+d)^2 -4(ad - bc)}}{2}$$
+Donde  $-(-bc)=bc$, por lo tanto es la formula original, por  lo tanto me ajusto al criterio
+\subsubsection{$a>0,\ b<0,\ c<0,\ d<0$} 
+Si b,c y d son negativos, entonces:
+$$ k1,k2 = \frac{(a-d) \pm \sqrt{(a-d)^2 -4(-ad - bc)}}{2}$$
+El determinante siempre es negativo, por lo tanto es silla
+\subsubsection{$a<0,\ b>0,\ c>0,\ d>0$} 
+Si a es negativo, entonces:
+$$ k1,k2 = \frac{(-a+d) \pm \sqrt{(-a+d)^2 -4(-ad - bc)} }{2}$$
+El proceso es analogo al anterior, luego es una silla, el determinante es negativo
+\subsubsection{$a<0,\ b>0,\ c>0,\ d<0$} 
+Si a y d son negativos, entonces:
+$$ k1,k2 = \frac{(-a-d) \pm \sqrt{(-a-d)^2 -4(ad - bc)} }{2}$$
+En este caso no podemos decir nada, puesto que depende de los parámetros
+\subsubsection{$a<0,\ b>0,\ c<0,\ d>0$} 
+Si a y c son negativos, entonces:
+$$ k1,k2 = \frac{(-a+d) \pm \sqrt{(-a+d)^2 -4(-ad + bc)} }{2}$$
+No tengo que decir en este caso, depende del valor entre los parametros, luego me ajusto al criterio
+\subsubsection{$a<0,\ b>0,\ c<0,\ d<0$} 
+Si a, c y d son negativos, luego:
+$$ k1,k2 = \frac{(-a-d) \pm \sqrt{(-a-d)^2 -4(ad + bc)} }{2}$$
+Este caso depende del valor de los parametros, como el determinante es positivo,
+entonces puede ser un foco o un nodo
+\subsubsection{$a<0,\ b<0,\ c>0,\ d>0$} 
+Si a y b son negativos, entonces:
+$$ k1,k2 = \frac{(-a+d) \pm \sqrt{(-a+d)^2 -4(-ad + bc)} }{2}$$
+El problema depende de los parámetros, luego se ajusta al criterio inicial
+\subsubsection{$a<0,\ b<0,\ c>0,\ d<0$} 
+Si a,b y d son negativos, luego:
+$$ k1,k2 = \frac{(-a-d) \pm \sqrt{(-a-d)^2 -4(ad + bc)} }{2}$$
+El caso depende del valor de los parametros, como el determinante es positivo,
+pueder ser una nodo o un foco.
+\subsubsection{$a<0,\ b<0,\ c<0,\ d>0$} 
+Si a,b,c son negativos, entonces:
+$$ k1,k2 = \frac{(-a+d) \pm \sqrt{(-a+d)^2 -4(-ad - bc)} }{2}$$
+Como el determinante siempre es negativo, luego es una silla, por el criterio traza-determinante.
+\subsubsection{$a<0,\ b<0,\ c<0,\ d<0$}
+Si todos son negativos, entonces:
+$$ k1,k2 = \frac{(-a-d) \pm \sqrt{(-a-d)^2 -4(ad - bc)} }{2}$$
+Este caso depende del valor de los parametros, luego se ajusta al criterio inicial
+
+
+\subsection{Dibujar retratos de fase para cada caso }
+\ El analisis de los retratos de fase para cada combinación de simbolos puede resumirse en el analisis
+del comportamiento general de los tipos de solución.
+\subsubsection{Silla}
+\ Las sillas son un tipo de solución que siempre son inestables, sus valores
+propios son reales, y como presentan diferentes signos entonces sus soluciones se
+acercan al origen y luego se alejan del origen.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Silla.png}
+    \caption{Sillas}
+    \label{fig:ejemplo}
+\end{figure}
+\subsubsection{Nodo}
+\ Los nodos son un tipo de solución que pueder ser inestables o estables, sus valores 
+propios son reales, y son ambos presentan el mismo signo; de aquí se desprenden los casos:
+\begin{enumerate}
+  \item $\lambda 1 <0$: Todas las soluciones tienden al origen
+  \item $\lambda 1 >0$: Todas las soluciones se alejan del origen
+\end{enumerate}
+\begin{figure}[h]
+    \centering
+  \begin{minipage}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{NodoEstable.png}
+    \caption{Nodo Estable}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{NodoInestable.png}
+    \caption{Nodo Inestable}
+  \end{minipage}
+\end{figure}
+\subsubsection{Foco}
+\ Los focos son un tipo de solución que aparecen cuando las soluciones
+del sistema se vuelven complejas, osea, sus eigenvalores son complejos. 
+La solución general de estos sistemas es de la forma:
+\begin{equation}
+Y_2(t)=e^{\alpha t}
+(B_1\sin(\beta t)+B_2\cos(\beta t)).
+\end{equation}
+En la ecuación:\\
+\ $\alpha$:  determina si crece o decrece la amplitud \\
+\ $\beta$ : determina la rapidez de giro, su periodo natural es
+$\frac{2\pi}{\beta}$.\\
+Estos poseen varios subcasos, si tomamos que: $\lambda = \alpha \pm \beta i$:
+\begin{enumerate}
+  \item Estables: Si $\alpha<0$ (Las trayectorias se acercan girando al origen)
+  \item Inestables: Si $\alpha>0$ (Las trayectorias se alejan girando del origen) 
+  \item Centro: Si $\alpha=0$ (Curvas cerradas periódicas)
+\end{enumerate}
+\begin{figure}[h]
+      \centering
+  \begin{minipage}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{FocoEstable.png}
+    \caption{Foco Estable}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{FocoInestable.png}
+    \caption{Foco Inestable}
+  \end{minipage}
+   \hfill
+  \begin{minipage}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{Centro.png}
+    \caption{Centro}
+  \end{minipage}
+\end{figure}
+
+\subsection{Modelo no lineal}
+\ El modelo no lineal, consiste en la hipótesis de: si el amor de Julieta es
+abundante, Romeo responde de manera adversa, y si Julieta odia a Romeo, entonces
+ Romeo decide tratarla mejor.
+\ Este modelo puede expresarse como un modelo lógistico:
+$$\frac{dR}{dt}=aR+bJ(1-|J|) $$
+$$\frac{dJ}{dt}=cR(1-|R|)+dJ$$
+\subsubsection{Puntos de Equilibrio}
+Luego, los puntos de equilibrio son las soluciones del sistema igualado a cero, 
+del cual:
+$$0=aR+bJ(1-|J|) $$
+$$0=cR(1-|R|)+dJ$$
+Luego:
+$$J=\frac{-cR(1-|R|)}{d}$$
+Sustituyendo en $0=aR+bJ(1-|J|)$:
+$$0=aR+b(\frac{-cR(1-|R|)}{d})(1-|\frac{-cR(1-|R|)}{d}|) $$
+$$0=R(a+b(\frac{-c(1-|R|)}{d})(1-|\frac{-cR(1-|R|)}{d}|) ) $$
+Fijando los valores a=b=-2 y c=d=1; obtenemos la ecuación:
+$$0=R(-2 -2(-(1-|R|))(1-|-R(1-|R|)|) ) $$
+El análisis de esta ecuación se debe realizar por los valores de R, debido al 
+del módulo; se obtienen los equilibrios:
+\begin{enumerate}
+  \item (0,0)
+  \item (2,2)
+  \item (-2,-2)
+\end{enumerate}
+\subsubsection{Proceso de linealización}
+ El proceso de linealización se basa en la idea de que, a partir de una vecindad del equilibrio,
+  la función tiene un comportamiento similar a su derivada. Partiendo del (0,0):
+ \\ \ Digamos: $R=0+u$ y $J=0+v$ :
+ $$\frac{du}{dt} = -2u - 2v(1 - |v|)$$
+ $$\frac{dv}{dt} = u(1-|u|) + v$$
+ Luego como el módulo de u y v son cercanos a cero; podemos decir que
+ $1-|u|$ y $1-|v|$ son cercanos a 1, luego:
+ $$\frac{du}{dt} = -2u - 2v$$
+ $$\frac{dv}{dt} = u + v$$
+ El proceso es analogo para cada equilibrio, este se resume en:
+ \begin{enumerate}
+  \item Declarar $R = \epsilon x +u$ y  $J = \epsilon y +v$
+  \item Sustituir en la ecuación los valores
+  \item Analizar comportamiento
+  \item Escribir el sistema matricial lineal
+ \end{enumerate}
+ \subsubsection{Ausencia de ciclos}
+ La ausencia o presencia de ciclos en el sistema determinarse por el criterio de Bendixson:
+ \\ Si se cumple que:
+ $$\frac{dx}{dt} =f(x,y) $$
+ $$\frac{dy}{dt} =g(x,y) $$
+ $$ $$
+ Y en una región simple conexa D:
+ $$ \frac{\partial f}{\partial x} + \frac{\partial g}{ \partial y}$$
+ 
+ Mantiene el signo constante y no es identicamente a cero, entonces no hay órbitas periódicas en D.
+ \\ Como el sistema es de la forma:
+$$\frac{dR}{dt}=aR+bJ(1-|J|) $$
+$$\frac{dJ}{dt}=cR(1-|R|)+dJ$$
+ Entonces:
+  $$ \frac{\partial f}{\partial R} + \frac{\partial g}{ \partial J} =  a + d$$
+  la existencia de ciclos depende de los valores de los parametros, como en el caso a=-2 y d=1, entonces es
+  constante de valor igual a -1, por lo tanto no presenta ciclos límites. Hay que destacar que depende
+   de la región del plano, puesto que esto afecta si R o J son positivos.
+\end{document}
