@@ -171,4 +171,82 @@ En este caso se obtienen los valores propios: $\lambda_{1, 2} = \pm \sqrt{a^2 - 
 Este caso consiste en que Romeo y Julieta son idénticos en su manera de responder.
 En este caso se obtienen los valores propios: $\lambda_{1, 2} = a \pm b$.
 
+\section{Simulación Numérica de los Modelos de Amor}
+
+\subsection{Método de Euler Explícito para Sistemas Lineales}
+
+Para el sistema lineal 2D de Romeo y Julieta:
+
+\begin{equation}
+\frac{dR}{dt} = aR + bJ, \qquad
+\frac{dJ}{dt} = cR + dJ,
+\end{equation}
+
+con matriz $A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$ y estado $Y = (R, J)^T$, el método de Euler explícito con paso de tiempo $h$ genera la sucesión:
+
+\begin{equation}
+Y_{n+1} = (I + hA) Y_n,
+\end{equation}
+
+donde $Y_n = (R_n, J_n)^T$ es la aproximación numérica en el instante $t_n = nh$.
+
+\subsection{Comparación con la Solución Analítica}
+
+La solución exacta del sistema lineal se escribe como exponencial matricial:
+
+\begin{equation}
+Y(t) = e^{At} Y_0,
+\end{equation}
+
+con $Y_0 = (R(0), J(0))^T$. El error absoluto de la aproximación de Euler se define como:
+
+\begin{equation}
+\mathcal{E}(t) = \left| Y_{\text{Euler}}(t) - Y_{\text{analytical}}(t) \right|,
+\end{equation}
+
+y se cuantifica mediante el error máximo y el error medio sobre el intervalo de integración $[t_0, t_f]$:
+
+\begin{equation}
+E_{\max,R} = \max_{0 \le n \le N} |R_{\text{Euler}}(t_n) - R_{\text{analytical}}(t_n)|,
+\end{equation}
+
+\begin{equation}
+E_{\text{med},R} = \frac{1}{N+1} \sum_{n=0}^{N} |R_{\text{Euler}}(t_n) - R_{\text{analytical}}(t_n)|,
+\end{equation}
+
+y análogamente para la variable $J$.
+
+\subsection{Modelo No Lineal con Saturación Emocional}
+
+El modelo no lineal 2D incorpora términos de saturación que limitan el crecimiento de los sentimientos:
+
+\begin{equation}
+\frac{dR}{dt} = aR + bJ - k_R R (R^2 + J^2), \qquad
+\frac{dJ}{dt} = cR + dJ - k_J J (R^2 + J^2),
+\end{equation}
+
+donde $k_R, k_J > 0$ son coeficientes de saturación para Romeo y Julieta, respectivamente. Debido a su naturaleza no lineal, este sistema se integra numéricamente.
+
+\subsection{Integración Numérica con Método Adaptativo}
+
+El sistema no lineal y el triángulo amoroso se integran con un método de Runge--Kutta de orden 4 con control de error de orden 5 (método RK45 implementado en \texttt{scipy.integrate.solve\_ivp}), que ajusta automáticamente el paso de tiempo para mantener el error local de truncamiento dentro de una tolerancia prescrita.
+
+\subsection{Triángulo Amoroso Lineal}
+
+Para el sistema de tres individuos (Romeo, Julieta y Guinevere), el acoplamiento lineal se expresa como:
+
+\begin{equation}
+\frac{dR}{dt} = a_R R + b_{RJ} J + b_{RG} G,
+\end{equation}
+
+\begin{equation}
+\frac{dJ}{dt} = a_J J + b_{JR} R + b_{JG} G,
+\end{equation}
+
+\begin{equation}
+\frac{dG}{dt} = a_G G + b_{GR} R + b_{GJ} J,
+\end{equation}
+
+donde $R, J, G$ representan los sentimientos de Romeo hacia Julieta, de Julieta hacia Romeo y de Guinevere hacia la pareja, respectivamente, y los coeficientes $a_\cdot, b_{\cdot\cdot}$ definen los estilos románticos y las influencias mutuas.
+
 \end{document}
