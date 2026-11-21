@@ -1,0 +1,142 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+
+\geometry{margin=2.5cm}
+
+\title{Informe de Simulación Numérica — Modelos Dinámicos del Amor}
+
+\author{}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Introducción}
+
+Este documento describe la simulación numérica de los sistemas de ecuaciones diferenciales ordinarias (EDO) que modelan la dinámica del amor entre individuos en una relación romántica. El objetivo es integrar numéricamente los modelos lineales y no lineales descritos en la literatura, comparar los resultados con la solución analítica cuando esta existe, y analizar el comportamiento de los sistemas bajo diferentes estilos románticos y condiciones iniciales.
+
+\section{Modelo Lineal: La Pareja Romeo y Julieta}
+
+El modelo más simple considerado es un sistema lineal de dos ecuaciones diferenciales acopladas que describen el amor de Romeo hacia Julieta ($R$) y el amor de Julieta hacia Romeo ($J$) como funciones del tiempo:
+
+\begin{equation}
+\frac{dR}{dt} = aR + bJ, \qquad
+\frac{dJ}{dt} = cR + dJ,
+\end{equation}
+
+donde:
+
+\begin{itemize}
+    \item $a$: influencia de los propios sentimientos de Romeo sobre su propio amor.
+    \item $b$: influencia de los sentimientos de Julieta sobre Romeo.
+    \item $c$: influencia de los sentimientos de Romeo sobre Julieta.
+    \item $d$: influencia de los propios sentimientos de Julieta sobre su propio amor.
+\end{itemize}
+
+Los parámetros $a, b, c, d$ pueden ser positivos, negativos o nulos, lo que da lugar a distintos arquetipos románticos (por ejemplo, ``Eager Beaver'', ``Cautious Lover'', ``Hermit'' o ``Narcissistic Nerd'').
+
+En forma matricial, el sistema se escribe:
+
+\begin{equation}
+\frac{dY}{dt} = AY, \qquad
+A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}, \qquad
+Y = \begin{pmatrix} R \\ J \end{pmatrix}.
+\end{equation}
+
+\subsection{Método de Euler Explícito}
+
+Para obtener una solución numérica del sistema lineal, se utiliza el método de Euler explícito. Dado un paso de tiempo $h > 0$ y el estado inicial $Y_0 = (R(0), J(0))^T$, la aproximación en el instante $t_n = nh$ se calcula mediante:
+
+\begin{equation}
+Y_{n+1} = Y_n + h \cdot A Y_n = (I + hA) Y_n,
+\end{equation}
+
+donde $I$ es la matriz identidad de orden 2. Este método avanza paso a paso en el tiempo, utilizando la pendiente actual para estimar el valor futuro.
+
+El error local cometido en cada paso es proporcional a $h^2$, mientras que el error global acumulado es del orden de $h$. Por tanto, reducir el paso de tiempo mejora la precisión de la simulación, aunque aumenta el número de pasos necesarios.
+
+\subsection{Comparación con la Solución Analítica}
+
+Cuando la matriz $A$ es diagonalizable, la solución exacta del sistema lineal se expresa como:
+
+\begin{equation}
+Y(t) = e^{At} Y_0,
+\end{equation}
+
+donde $e^{At}$ es la exponencial matricial. Si $\lambda_1, \lambda_2$ son los valores propios de $A$ y $V_1, V_2$ sus vectores propios asociados, la solución general tiene la forma:
+
+\begin{equation}
+Y(t) = c_1 e^{\lambda_1 t} V_1 + c_2 e^{\lambda_2 t} V_2,
+\end{equation}
+
+con constantes $c_1, c_2$ determinadas por las condiciones iniciales.
+
+Para cuantificar la precisión del método de Euler, se define el error absoluto entre la solución numérica y la solución analítica:
+
+\begin{equation}
+\mathcal{E}(t) = \left| Y_{\text{Euler}}(t) - Y_{\text{analytical}}(t) \right|,
+\end{equation}
+
+y se reportan el error máximo y el error medio sobre el intervalo de integración $[t_0, t_f]$:
+
+\begin{equation}
+E_{\max,R} = \max_{0 \le n \le N} \left| R_{\text{Euler}}(t_n) - R_{\text{analytical}}(t_n) \right|,
+\end{equation}
+
+\begin{equation}
+E_{\text{med},R} = \frac{1}{N+1} \sum_{n=0}^{N} \left| R_{\text{Euler}}(t_n) - R_{\text{analytical}}(t_n) \right|,
+\end{equation}
+
+y análogamente para la variable $J$. Estos indicadores permiten evaluar cuán cerca se aproxima la solución numérica a la solución exacta para cada estilo romántico y conjunto de condiciones iniciales.
+
+\section{Modelo No Lineal con Saturación Emocional}
+
+En situaciones más realistas, los sentimientos no crecen de forma ilimitada. Se introduce un término de saturación que modela el agotamiento emocional o los límites naturales de la intensidad afectiva:
+
+\begin{equation}
+\frac{dR}{dt} = aR + bJ - k_R R (R^2 + J^2), \qquad
+\frac{dJ}{dt} = cR + dJ - k_J J (R^2 + J^2),
+\end{equation}
+
+donde $k_R, k_J > 0$ son coeficientes de saturación para Romeo y Julieta, respectivamente. Cuando $R$ y $J$ son pequeños, el sistema se comporta como el modelo lineal. Cuando sus valores crecen, el término cuadrático domina y frena el crecimiento, produciendo dinámicas acotadas.
+
+Debido a la presencia de términos no lineales, este sistema no admite en general una solución analítica cerrada, por lo que se recurre a métodos numéricos.
+
+\subsection{Integración Numérica con Método Adaptativo}
+
+El sistema no lineal se integra utilizando el método de Runge--Kutta de orden 4 con estimación de error de orden 5, comúnmente conocido como RK45. Este método está implementado en la rutina \texttt{solve\_ivp} de la biblioteca SciPy de Python.
+
+A diferencia de Euler, que usa un paso de tiempo fijo, el método adaptativo ajusta automáticamente el tamaño del paso en cada iteración para mantener el error local de truncamiento dentro de una tolerancia prescrita. Cuando la solución varía rápidamente, el paso se reduce; cuando la solución es suave, el paso se incrementa, optimizando el costo computacional sin perder precisión.
+
+\section{Triángulo Amoroso Lineal}
+
+Se extiende el modelo a tres individuos: Romeo, Julieta y Guinevere. El estado del sistema se representa por el vector $(R, J, G)^T$, donde $G$ denota el amor de Guinevere. El acoplamiento lineal entre los tres individuos se escribe como:
+
+\begin{equation}
+\frac{dR}{dt} = a_R R + b_{RJ} J + b_{RG} G,
+\end{equation}
+
+\begin{equation}
+\frac{dJ}{dt} = a_J J + b_{JR} R + b_{JG} G,
+\end{equation}
+
+\begin{equation}
+\frac{dG}{dt} = a_G G + b_{GR} R + b_{GJ} J,
+\end{equation}
+
+donde cada parámetro $a_\cdot$ representa la inercia emocional de un individuo, y cada parámetro $b_{\cdot\cdot}$ representa la influencia de un individuo sobre otro.
+
+Este sistema también se integra numéricamente con los métodos descritos anteriormente, permitiendo explorar cómo las interacciones a tres bandas afectan la evolución de los sentimientos en el tiempo.
+
+\section{Conclusión}
+
+La simulación numérica proporciona una herramienta poderosa para analizar modelos dinámicos de amor cuando no es posible obtener una solución analítica cerrada, como sucede en los sistemas no lineales y en los triángulos amorosos. El método de Euler explícito ofrece una aproximación sencilla y comprensible para los sistemas lineales, mientras que los métodos adaptativos como RK45 son más adecuados para sistemas no lineales con saturación. La comparación con la solución analítica, cuando está disponible, permite validar la implementación numérica y evaluar su precisión bajo distintos estilos románticos y condiciones iniciales.
+
+\end{document}
