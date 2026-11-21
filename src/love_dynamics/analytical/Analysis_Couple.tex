@@ -1,0 +1,174 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+
+\geometry{margin=2.5cm}
+
+\title{Solución Analítica de los Modelos Dinámicos del Amor}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Modelo Lineal: La pareja Romeo y Julieta}
+
+Para representar la evolución del amor entre la pareja de Romeo y Julieta con el paso del tiempo, se considera
+el siguiente sistema lineal:
+
+\begin{equation}
+\begin{cases}
+\frac{dR}{dt} = aR + bJ,\\
+\frac{dJ}{dt} = cR + dJ.
+\end{cases}
+\end{equation}
+
+Cada elemento representa lo siguiente:
+	\begin{enumerate}[label=-]
+	\item $R(t)$: sentimientos de Romeo hacia Julieta.
+	\item $J(t)$: sentimientos de Julieta hacia Romeo.
+	\item $a$: influencia de los sentimientos propios de Romeo.
+	\item $b$: influencia de los sentimientos de Julieta sobre Romeo.
+	\item $c$: influencia de los sentimientos de Romeo sobre Julieta.
+	\item $d$: influencia de los sentimientos propios de Julieta.
+	\end{enumerate}
+
+Los parámetros $a$, $b$, $c$ y $d$ pueden tomar valores negativos, positivos o nulos.
+
+$ $
+
+Escrito en forma matricial, queda de la siguiente forma:
+
+\begin{equation}
+Y'=AY,
+\qquad
+A=
+\begin{pmatrix}
+a & b\\
+c & d
+\end{pmatrix},
+\qquad
+Y=
+\begin{pmatrix}
+R\\
+J
+\end{pmatrix}.
+\end{equation}
+
+\subsection{Solución de Equilibrio}
+El origen $(0; 0)$ representa el único punto de equilibrio del modelo, por tanto $R(t) = 0$ y $J(t) = 0$ constituyen
+las soluciones triviales del sistema.
+
+\subsection{Hallar los valores propios}
+
+\begin{equation}
+det(A - \lambda I)= 0
+\end{equation}
+
+\begin{equation}
+    \begin{vmatrix}
+    a - \lambda & b\\
+    c & d - \lambda
+    \end{vmatrix} = 0
+\end{equation}
+
+\begin{equation}
+\lambda^2-(a+d)\lambda+(ad-bc)=0
+\end{equation}
+
+A partir de $(5)$ obtenemos el discriminante:
+
+\begin{equation}
+\Delta=(a+d)^2-4(ad-bc)
+\end{equation}
+
+Luego, los valores propios serán:
+
+\begin{equation}
+\lambda_{1, 2} = \frac{a + d \pm \sqrt{(a+d)^2-4(ad-bc)}}{2}
+\end{equation}
+
+Debido a que los parámetros pueden ser negativos, positivos o nulos, puede suceder en consecuencia que el discriminante sea negativo,
+positivo o nulo. De aquí se derivan varios casos en los que varía la forma de la solución general.
+
+\subsection{Caso 1: $\Delta > 0 \Rightarrow$ Valores propios reales distintos}
+
+Si $\lambda_1 \neq \lambda_2$, buscamos los vectores propios
+$K_1$ y $K_2$ asociados respectivamente, los cuales serán l.i.
+
+La solución general es:
+
+\begin{equation}
+Y(t)=c_1e^{\lambda_1t}K_1
++c_2e^{\lambda_2t}K_2.
+\end{equation}
+
+\subsection{Caso 2: $\Delta = 0 \Rightarrow$ Valor propio repetido}
+
+Si $\lambda_1=\lambda_2=\lambda$, existen dos posibilidades.
+
+\textbf{Dos vectores propios (l.i.):}
+
+\begin{equation}
+Y(t)=c_1e^{\lambda t}K_1 + c_2e^{\lambda t}K_2
+\end{equation}
+
+\textbf{Un solo vector propio:}
+
+Buscamos un vector propio generalizado $P$ que satisfaga:
+
+\begin{equation}
+(A-\lambda I)P=K.
+\end{equation}
+
+La solución general es:
+
+\begin{equation}
+Y(t)=c_1e^{\lambda t}K
++c_2e^{\lambda t}(tK+P).
+\end{equation}
+
+\subsection{Caso 3: $\Delta < 0 \Rightarrow$ Valores propios complejos}
+
+Si los valores propios son $\lambda=\alpha\pm i\beta$, y un vector propio complejo es $K = B_1 + iB_2$,
+obtenemos dos soluciones reales:
+
+\begin{equation}
+Y_1(t)=e^{\alpha t}
+(B_1\cos(\beta t)-B_2\sin(\beta t)),
+\end{equation}
+
+\begin{equation}
+Y_2(t)=e^{\alpha t}
+(B_1\sin(\beta t)+B_2\cos(\beta t)).
+\end{equation}
+
+Por tanto, la solución general es:
+
+\begin{equation}
+Y(t)=c_1Y_1(t)+c_2Y_2(t).
+\end{equation}
+
+\section{Análisis de los casos particulares}
+
+\subsection{Caso 1: Out of touch ($a = d = 0$)}
+
+Este caso consiste en que Romeo y Julieta no responden a sus propios sentimientos, sino únicamente a los de la otra persona.
+En este caso se obtienen los valores propios: $\lambda_{1, 2} = \pm \sqrt{bc}$.
+
+\subsection{Caso 2: Fire and Ice ($c = -b$ y $a = -d$)}
+
+Este caso consiste en que Romeo y Julieta son opuestos exactos en su manera de responder.
+En este caso se obtienen los valores propios: $\lambda_{1, 2} = \pm \sqrt{a^2 - b^2}$.
+
+\subsection{Caso 3: Peas in a Pod ($c = b$ y $a = d$)}
+
+Este caso consiste en que Romeo y Julieta son idénticos en su manera de responder.
+En este caso se obtienen los valores propios: $\lambda_{1, 2} = a \pm b$.
+
+\end{document}

@@ -78,3 +78,26 @@ src/love_dynamics/derivation/derivation.fls
 src/love_dynamics/derivation/derivation.log
 src/love_dynamics/derivation/derivation.pdf
 src/love_dynamics/derivation/derivation.synctex.gz
+
+Archivos auxiliares de LaTeX y Archivos temporales
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.lof
+*.lot
+*.nav
+*.snm
+*.vrb
+*.xdv
+
+*.bak
+*.swp
+*~
