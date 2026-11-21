@@ -72,3 +72,9 @@ IDEs, EDITORES Y SISTEMA OPERATIVO
 *.swp
 *.swo
 .DS_Store Thumbs.db
+src/love_dynamics/derivation/derivation.aux
+src/love_dynamics/derivation/derivation.fdb_latexmk
+src/love_dynamics/derivation/derivation.fls
+src/love_dynamics/derivation/derivation.log
+src/love_dynamics/derivation/derivation.pdf
+src/love_dynamics/derivation/derivation.synctex.gz
