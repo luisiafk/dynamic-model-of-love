@@ -56,7 +56,34 @@ def analytical_solution_linear_2d(
     """
     # TODO(Task 2): implementar solución analítica real aquí.
     # Por ahora devuelve ceros con la forma correcta para no romper Task 4.
-    return np.zeros((2, len(t_eval)), dtype=float)
+    t = np.asarray(t_eval, dtype=float)
+    R0, J0 = np.asarray(y0, dtype=float)
+
+    lam = 0.5 * (a + d)
+    h = 0.5 * (a - d)
+    s2 = h * h + b * c
+
+    tol = 1e-12 * max(1.0, abs(a), abs(b), abs(c), abs(d)) ** 2
+    # Delta = 0: valor propio doble
+    if abs(s2) <= tol:
+        C = np.ones_like(t)
+        S = t
+    # Delta > 0: reales distintos
+    elif s2 > 0:
+        s = np.sqrt(s2)
+        C = np.cosh(s * t)
+        S = np.sinh(s * t) / s
+    # Delta < 0: complejos
+    else:
+        w = np.sqrt(-s2)
+        C = np.cos(w * t)
+        S = np.sin(w * t) / w
+
+    E = np.exp(lam * t)
+
+    R = E * (C * R0 + S * (h * R0 + b * J0))
+    J = E * (C * J0 + S * (c * R0 - h * J0))
+    return np.vstack([R, J])
 
 
 __all__ = ["analytical_solution_linear_2d"]
