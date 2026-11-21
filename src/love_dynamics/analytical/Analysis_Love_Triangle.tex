@@ -1,0 +1,420 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-noshorthands]{babel}
+\usepackage{lmodern,microtype}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{geometry}
+\usepackage{enumitem}
+\geometry{top=2.0cm,bottom=2.0cm,left=2.35cm,right=2.35cm}
+\setlength{\parindent}{1.15em}
+\setlength{\parskip}{0.13em}
+\setlength{\abovedisplayskip}{6pt plus 2pt minus 2pt}
+\setlength{\belowdisplayskip}{6pt plus 2pt minus 2pt}
+\setlength{\abovedisplayshortskip}{4pt plus 2pt}
+\setlength{\belowdisplayshortskip}{4pt plus 2pt}
+\setlist[itemize]{leftmargin=1.75em,itemsep=1pt,topsep=2pt,parsep=0pt}
+\allowdisplaybreaks[2]
+\newcommand{\RJ}{R_{J}}
+\newcommand{\RG}{R_{G}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\mat}[1]{\begin{pmatrix}#1\end{pmatrix}}
+\title{\textbf{Solución Analítica del Triángulo Amoroso Lineal}}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-2.6em}
+
+\section{Modelo Lineal de tres personas}
+Modelo de cuatro dimensiones propuesto para representar la evolución de los sentimientos entre Romeo, Julieta y Guinevere (Sprott, 2004, ecuación (3)):
+\begin{equation}\label{eq:modelo}
+\boxed{\begin{cases}
+\dfrac{\dd \RJ}{\dd t}=a\RJ+b(J-G),\\[3pt]
+\dfrac{\dd J}{\dd t}=c\RJ+dJ,\\[3pt]
+\dfrac{\dd \RG}{\dd t}=a\RG+b(G-J),\\[3pt]
+\dfrac{\dd G}{\dd t}=e\RG+fG.
+\end{cases}}
+\end{equation}
+Cada elemento representa lo siguiente:
+\begin{itemize}
+\item $\RJ(t)$: sentimientos de Romeo hacia Julieta.
+\item $J(t)$: sentimientos de Julieta hacia Romeo.
+\item $\RG(t)$: sentimientos de Romeo hacia Guinevere.
+\item $G(t)$: sentimientos de Guinevere hacia Romeo.
+\item $a$: influencia de los sentimientos propios de Romeo.
+\item $b$: influencia de las respuestas de Julieta y Guinevere sobre Romeo.
+\item $c$: influencia de los sentimientos de Romeo sobre Julieta.
+\item $d$: influencia de los sentimientos propios de Julieta.
+\item $e$: influencia de los sentimientos de Romeo sobre Guinevere.
+\item $f$: influencia de los sentimientos propios de Guinevere.
+\end{itemize}
+Los parámetros $a,b,c,d,e,f$ son reales y constantes. Las variables pueden adoptar valores positivos (amor), negativos (rechazo) o nulos (indiferencia).
+
+Escrito en forma matricial, el sistema queda:
+\begin{equation}\label{eq:matriz_original}
+Y'=AY,\qquad
+A=\mat{a&b&0&-b\\c&d&0&0\\0&-b&a&b\\0&0&e&f},\qquad
+Y=\mat{\RJ\\J\\\RG\\G}.
+\end{equation}
+
+\subsection{Soluciones de equilibrio}
+Las soluciones de equilibrio satisfacen $AY^*=0$. El origen $Y^*=(0,0,0,0)^T$ siempre es un equilibrio. Es el único si $\det A\ne0$, donde
+\begin{equation}\label{eq:detA}
+\boxed{\det A=a(adf-bcf-bde).}
+\end{equation}
+Si $\det A=0$, el sistema homogéneo posee también equilibrios no triviales: cualquier vector no nulo del núcleo de $A$ define uno de ellos.
+
+\subsection{Desacoplamiento parcial del sistema general}
+Definimos la suma de los sentimientos de Romeo:
+\begin{equation}\label{eq:defS}
+S(t)=\RJ(t)+\RG(t).
+\end{equation}
+Derivamos:
+\begin{equation}
+\frac{\dd S}{\dd t}=\frac{\dd \RJ}{\dd t}+\frac{\dd \RG}{\dd t}.
+\end{equation}
+Sustituyendo las ecuaciones del modelo:
+\begin{equation}
+\frac{\dd S}{\dd t}=a\RJ+b(J-G)+a\RG+b(G-J).
+\end{equation}
+Los términos que contienen $b$ se cancelan y obtenemos:
+\begin{equation}\label{eq:Sprime}
+\boxed{\frac{\dd S}{\dd t}=aS.}
+\end{equation}
+Resolviendo por el método del factor integrante, la ecuación $S'-aS=0$ tiene
+\begin{equation}
+\mu(t)=e^{-at},\qquad
+\frac{\dd}{\dd t}\bigl(e^{-at}S\bigr)=0.
+\end{equation}
+Por integración, $S(t)=Ce^{at}$. Si $S(0)=S_0$, entonces $C=S_0$ y
+\begin{equation}\label{eq:solS}
+\boxed{S(t)=S_0e^{at}.}
+\end{equation}
+Como $S_0=\RJ(0)+\RG(0)$, se concluye que
+\begin{equation}\label{eq:sumainicial}
+\boxed{\RJ(t)+\RG(t)=\bigl[\RJ(0)+\RG(0)\bigr]e^{at}.}
+\end{equation}
+
+Definimos la diferencia de los sentimientos de Romeo:
+\begin{equation}\label{eq:defD}
+D(t)=\RJ(t)-\RG(t).
+\end{equation}
+Derivando y sustituyendo las ecuaciones originales:
+\begin{align}
+D'&=\RJ'-\RG'\\
+  &=a\RJ+b(J-G)-\bigl[a\RG+b(G-J)\bigr]\\
+  &=a(\RJ-\RG)+2b(J-G).
+\end{align}
+Por tanto:
+\begin{equation}\label{eq:Dprime}
+\boxed{D'=aD+2b(J-G).}
+\end{equation}
+Se observa que la ecuación para $D(t)$ depende todavía de $J(t)$ y $G(t)$. Para reducir este acoplamiento, definimos:
+\begin{equation}\label{eq:defV}
+V(t)=J(t)-G(t),
+\end{equation}
+de donde $D'=aD+2bV$. Ahora derivamos $V$ y sustituimos:
+\begin{equation}\label{eq:Vgeneral}
+V'=J'-G'=c\RJ-e\RG+dJ-fG.
+\end{equation}
+Hasta aquí no hemos impuesto condiciones especiales sobre los parámetros: \eqref{eq:solS}, \eqref{eq:Dprime} y \eqref{eq:Vgeneral} pertenecen al \textit{modelo general}.
+
+\subsection{Caso particular: estilos idénticos de Julieta y Guinevere}
+Consideramos ahora las condiciones adicionales
+\begin{equation}\label{eq:simetria}
+\boxed{c=e,\qquad d=f.}
+\end{equation}
+En este caso, ambas mujeres tienen los mismos coeficientes de respuesta romántica. Sustituyendo \eqref{eq:simetria} en \eqref{eq:Vgeneral}:
+\begin{align}
+V'&=c\RJ-c\RG+dJ-dG\\
+  &=c(\RJ-\RG)+d(J-G)=cD+dV.
+\end{align}
+Por consiguiente, obtenemos el subsistema de diferencias:
+\begin{equation}\label{eq:DV}
+\boxed{\begin{cases}
+D'=aD+2bV,\\
+V'=cD+dV.
+\end{cases}}
+\end{equation}
+\textit{Observación.} La reducción a \eqref{eq:DV} requiere \eqref{eq:simetria}; no es una solución del sistema original con seis parámetros arbitrarios. Ese caso se completa en el apartado \ref{sec:general}.
+
+\subsection{Cálculo de los valores propios del subsistema}
+Escribiendo \eqref{eq:DV} en forma matricial:
+\begin{equation}\label{eq:B}
+Z'=BZ,\qquad B=\mat{a&2b\\c&d},\qquad Z=\mat{D\\V}.
+\end{equation}
+Los valores propios satisfacen $\det(B-\lambda I)=0$:
+\begin{equation}
+\begin{vmatrix}a-\lambda&2b\\c&d-\lambda\end{vmatrix}=0.
+\end{equation}
+Por tanto, la ecuación característica es:
+\begin{equation}\label{eq:char2}
+\boxed{\lambda^2-(a+d)\lambda+(ad-2bc)=0.}
+\end{equation}
+El discriminante viene dado por:
+\begin{equation}\label{eq:disc}
+\boxed{\Delta=(a+d)^2-4(ad-2bc)=(a-d)^2+8bc.}
+\end{equation}
+Luego, los valores propios son:
+\begin{equation}\label{eq:lambdas}
+\boxed{\lambda_{1,2}=\frac{a+d\pm\sqrt{\Delta}}{2}.}
+\end{equation}
+Como los parámetros son reales, el discriminante puede ser positivo, nulo o negativo. Distinguimos, en consecuencia, tres subcasos.
+
+\subsection{Caso 1: $\Delta>0$ -- Valores propios reales distintos}
+Si $\Delta>0$, existen dos valores propios reales distintos, $\lambda_1\ne\lambda_2$. Para cada $\lambda_i$ buscamos un vector propio $K_i\ne0$ que satisfaga
+\begin{equation}\label{eq:K}
+(B-\lambda_iI)K_i=0.
+\end{equation}
+Si $K_i=(x_i,y_i)^T$, obtenemos
+\begin{equation}
+\begin{cases}
+(a-\lambda_i)x_i+2by_i=0,\\
+cx_i+(d-\lambda_i)y_i=0.
+\end{cases}
+\end{equation}
+Cuando $b\ne0$ se puede escoger $x_i=1$, y entonces:
+\begin{equation}\label{eq:eigenvec}
+K_i=\mat{1\\\dfrac{\lambda_i-a}{2b}},\qquad i=1,2.
+\end{equation}
+Los vectores propios correspondientes a valores propios distintos son linealmente independientes. Por superposición, la solución general es:
+\begin{equation}\label{eq:sol_positivo}
+Z(t)=C_1e^{\lambda_1t}K_1+C_2e^{\lambda_2t}K_2.
+\end{equation}
+Desarrollando por componentes:
+\begin{equation}\label{eq:DVpos}
+\boxed{\begin{aligned}
+D(t)&=C_1e^{\lambda_1t}+C_2e^{\lambda_2t},\\[2pt]
+V(t)&=\frac{\lambda_1-a}{2b}C_1e^{\lambda_1t}
+     +\frac{\lambda_2-a}{2b}C_2e^{\lambda_2t}.
+\end{aligned}}
+\end{equation}
+Si $b=0$, no se divide entre $2b$. En ese caso $D'=aD$ y $V'=cD+dV$. Como $\Delta>0$ implica $a\ne d$, la solución es
+\begin{equation}\label{eq:b0dif}
+D(t)=D_0e^{at},\qquad
+V(t)=V_0e^{dt}+\frac{cD_0}{a-d}(e^{at}-e^{dt}).
+\end{equation}
+
+\subsection{Caso 2: $\Delta=0$ -- Valor propio repetido}
+Si el discriminante es nulo, aparece un valor propio repetido:
+\begin{equation}\label{eq:lambda_rep}
+\lambda_1=\lambda_2=\lambda=\frac{a+d}{2}.
+\end{equation}
+Existen dos posibilidades. Si se obtienen dos vectores propios linealmente independientes $K_1,K_2$ (para una matriz $2\times2$, esto exige $B=\lambda I$), entonces
+\begin{equation}
+Z(t)=C_1e^{\lambda t}K_1+C_2e^{\lambda t}K_2.
+\end{equation}
+Si solo existe un vector propio independiente $K$, buscamos un vector propio generalizado $P$ que verifique
+\begin{equation}\label{eq:jordan}
+(B-\lambda I)K=0,\qquad (B-\lambda I)P=K.
+\end{equation}
+La solución general es:
+\begin{equation}\label{eq:rep_general}
+\boxed{Z(t)=C_1e^{\lambda t}K+C_2e^{\lambda t}(tK+P).}
+\end{equation}
+En particular, si $b\ne0$, podemos elegir
+\begin{equation}
+K=\mat{1\\\dfrac{\lambda-a}{2b}},\qquad
+P=\mat{0\\\dfrac{1}{2b}},
+\end{equation}
+y obtener las soluciones explícitas:
+\begin{equation}\label{eq:rep_DV}
+\boxed{\begin{aligned}
+D(t)&=e^{\lambda t}(C_1+C_2t),\\
+V(t)&=\frac{e^{\lambda t}}{2b}
+\bigl[(\lambda-a)(C_1+C_2t)+C_2\bigr].
+\end{aligned}}
+\end{equation}
+Si $b=0$, la condición $\Delta=0$ implica $a=d=\lambda$. En tal caso la solución (incluso cuando $c=0$) se escribe:
+\begin{equation}\label{eq:b0rep}
+D(t)=D_0e^{at},\qquad V(t)=e^{at}(V_0+cD_0t).
+\end{equation}
+
+\subsection{Caso 3: $\Delta<0$ -- Valores propios complejos conjugados}
+Si el discriminante es negativo, los valores propios forman el par complejo conjugado
+\begin{equation}\label{eq:complex_lambda}
+\lambda_{1,2}=\alpha\pm i\beta,\qquad
+\alpha=\frac{a+d}{2},\qquad \beta=\frac{\sqrt{-\Delta}}2>0.
+\end{equation}
+Asociado a $\lambda_1=\alpha+i\beta$ se calcula, puesto que $b\ne0$ necesariamente,
+\begin{equation}\label{eq:complex_K}
+K=\mat{1\\\dfrac{\alpha-a+i\beta}{2b}}=P+iQ,
+\quad P=\mat{1\\\dfrac{\alpha-a}{2b}},\quad Q=\mat{0\\\dfrac{\beta}{2b}}.
+\end{equation}
+Usando la identidad $e^{i\beta t}=\cos(\beta t)+i\sin(\beta t)$, la parte real y la imaginaria de $e^{(\alpha+i\beta)t}K$ proporcionan dos soluciones reales independientes:
+\begin{align}
+Z_1(t)&=e^{\alpha t}\bigl[P\cos(\beta t)-Q\sin(\beta t)\bigr],\\
+Z_2(t)&=e^{\alpha t}\bigl[P\sin(\beta t)+Q\cos(\beta t)\bigr].
+\end{align}
+La solución general es $Z(t)=C_1Z_1(t)+C_2Z_2(t)$, es decir,
+\begin{equation}\label{eq:DVcomplex}
+\boxed{\begin{aligned}
+D(t)&=e^{\alpha t}\bigl[C_1\cos(\beta t)+C_2\sin(\beta t)\bigr],\\[2pt]
+V(t)&=\frac{e^{\alpha t}}{2b}\Bigl[
+(\alpha-a)\bigl(C_1\cos(\beta t)+C_2\sin(\beta t)\bigr)\\
+&\hspace{4.7em}+\beta\bigl(-C_1\sin(\beta t)+C_2\cos(\beta t)\bigr)
+\Bigr].
+\end{aligned}}
+\end{equation}
+La parte real $\alpha$ determina si la amplitud de las oscilaciones disminuye, se conserva o aumenta; $\beta$ es su frecuencia angular.
+
+\subsection{Resolución de la suma de los sentimientos de Julieta y Guinevere}
+Para recuperar las variables individuales de Julieta y Guinevere definimos, dentro del caso \eqref{eq:simetria},
+\begin{equation}\label{eq:defU}
+U(t)=J(t)+G(t).
+\end{equation}
+Derivamos y sustituimos las ecuaciones originales:
+\begin{align}
+U'&=J'+G'=c\RJ+dJ+c\RG+dG\\
+&=c(\RJ+\RG)+d(J+G).
+\end{align}
+Por las definiciones de $S$ y $U$:
+\begin{equation}\label{eq:Uprime}
+\boxed{U'=cS+dU.}
+\end{equation}
+Como conocemos $S(t)=S_0e^{at}$, obtenemos una ecuación lineal no homogénea de primer orden:
+\begin{equation}
+U'-dU=cS_0e^{at}.
+\end{equation}
+El factor integrante es $\mu(t)=e^{-dt}$. Multiplicando e identificando la derivada de un producto:
+\begin{equation}
+\frac{\dd}{\dd t}\bigl(Ue^{-dt}\bigr)=cS_0e^{(a-d)t}.
+\end{equation}
+Al integrar e imponer $U(0)=U_0$, distinguimos dos posibilidades:
+\begin{equation}\label{eq:Usol}
+\boxed{U(t)=
+\begin{cases}
+U_0e^{dt}+\dfrac{cS_0}{a-d}\bigl(e^{at}-e^{dt}\bigr),&a\ne d,\\[8pt]
+e^{at}\bigl(U_0+cS_0t\bigr),&a=d.
+\end{cases}}
+\end{equation}
+La segunda fórmula se obtiene integrando $cS_0e^{0t}=cS_0$ cuando $a=d$; evita dividir entre cero.
+
+\subsection{Recuperación de las variables originales y condiciones iniciales}
+Las variables auxiliares satisfacen:
+\begin{equation}
+S=\RJ+\RG,\quad D=\RJ-\RG,\quad U=J+G,\quad V=J-G.
+\end{equation}
+Sumando y restando estas igualdades recuperamos los sentimientos del modelo:
+\begin{equation}\label{eq:recover}
+\boxed{\begin{aligned}
+\RJ(t)&=\frac{S(t)+D(t)}{2},&\quad \RG(t)&=\frac{S(t)-D(t)}{2},\\[3pt]
+J(t)&=\frac{U(t)+V(t)}{2},&\quad G(t)&=\frac{U(t)-V(t)}{2}.
+\end{aligned}}
+\end{equation}
+Las condiciones iniciales de las variables auxiliares están determinadas por las originales:
+\begin{equation}\label{eq:initial}
+\begin{aligned}
+S_0&=\RJ(0)+\RG(0),&D_0&=\RJ(0)-\RG(0),\\
+U_0&=J(0)+G(0),&V_0&=J(0)-G(0).
+\end{aligned}
+\end{equation}
+En el caso $\Delta>0$ y $b\ne0$, las constantes de \eqref{eq:DVpos} se obtienen imponiendo $D(0)=D_0$, $V(0)=V_0$:
+\begin{equation}\label{eq:cons_pos}
+\boxed{\begin{aligned}
+C_1&=\frac{2bV_0-(\lambda_2-a)D_0}{\lambda_1-\lambda_2},\\
+C_2&=\frac{(\lambda_1-a)D_0-2bV_0}{\lambda_1-\lambda_2}.
+\end{aligned}}
+\end{equation}
+En el caso $\Delta=0$ y $b\ne0$, las constantes de \eqref{eq:rep_DV} son:
+\begin{equation}
+C_1=D_0,\qquad C_2=2bV_0-(\lambda-a)D_0.
+\end{equation}
+Por último, si $\Delta<0$, las constantes de \eqref{eq:DVcomplex} satisfacen:
+\begin{equation}\label{eq:cons_complex}
+C_1=D_0,\qquad C_2=\frac{2bV_0-(\alpha-a)D_0}{\beta}.
+\end{equation}
+De esta manera, \eqref{eq:solS}, \eqref{eq:DVpos}--\eqref{eq:DVcomplex}, \eqref{eq:Usol} y \eqref{eq:recover} constituyen la solución analítica del \emph{caso simétrico} para cualquier condición inicial, considerando los casos de división por cero indicados.
+
+\subsection{Aplicación al ejemplo del artículo de Sprott}
+En la figura 2 del artículo se estudia el caso
+\begin{equation}\label{eq:sprott}
+a=b=1,\qquad c=e=-1,\qquad d=f=1.
+\end{equation}
+En consecuencia, la matriz de diferencias es $B=\mat{1&2\\-1&1}$, cuyo discriminante es $\Delta=-8<0$. Sus valores propios son
+\begin{equation}
+\lambda_{1,2}=1\pm i\sqrt2.
+\end{equation}
+Definimos $\omega=\sqrt2$. Como $a=d=1$, las soluciones de las sumas y las diferencias son
+\begin{equation}\label{eq:aux_sprott}
+\boxed{\begin{aligned}
+S(t)&=S_0e^t,\\
+U(t)&=e^t(U_0-S_0t),\\
+D(t)&=e^t\bigl[D_0\cos(\omega t)+\omega V_0\sin(\omega t)\bigr],\\
+V(t)&=e^t\bigl[V_0\cos(\omega t)-\tfrac{D_0}{\omega}\sin(\omega t)\bigr].
+\end{aligned}}
+\end{equation}
+Aplicando \eqref{eq:recover} obtenemos las cuatro funciones buscadas:
+\begin{equation}\label{eq:sol_sprott}
+\boxed{\begin{aligned}
+\RJ(t)&=\frac{e^t}{2}\bigl[S_0+D_0\cos(\omega t)+\omega V_0\sin(\omega t)\bigr],\\[3pt]
+\RG(t)&=\frac{e^t}{2}\bigl[S_0-D_0\cos(\omega t)-\omega V_0\sin(\omega t)\bigr],\\[3pt]
+J(t)&=\frac{e^t}{2}\bigl[U_0-S_0t+V_0\cos(\omega t)-\tfrac{D_0}{\omega}\sin(\omega t)\bigr],\\[3pt]
+G(t)&=\frac{e^t}{2}\bigl[U_0-S_0t-V_0\cos(\omega t)+\tfrac{D_0}{\omega}\sin(\omega t)\bigr].
+\end{aligned}}
+\end{equation}
+Estas expresiones verifican las condiciones iniciales: al sustituir $t=0$ se obtiene $\RJ(0)=(S_0+D_0)/2$, $\RG(0)=(S_0-D_0)/2$, $J(0)=(U_0+V_0)/2$ y $G(0)=(U_0-V_0)/2$. Además, al derivar y sustituir en \eqref{eq:modelo}, satisfacen las cuatro EDO.
+
+La dependencia de $D$ y $V$ respecto de $\cos(\omega t)$ y $\sin(\omega t)$ produce oscilaciones en las diferencias de sentimientos, mientras que el factor $e^t$ hace crecer su amplitud, salvo que $D_0=V_0=0$. El equilibrio en el origen es inestable para estos parámetros. La figura 2 del artículo representa una proyección bidimensional de esta dinámica de cuatro dimensiones.
+
+\subsection{Solución del modelo general sin imponer $c=e$ y $d=f$}\label{sec:general}
+Regresamos ahora al sistema original \eqref{eq:modelo}, cuyos seis parámetros son independientes. El desacoplamiento de $S$ sigue siendo válido, pues $S'=aS$ no necesita \eqref{eq:simetria}. En cambio, la ecuación para $V$ ya no se reduce a $V'=cD+dV$.
+
+Como $\RJ=(S+D)/2$ y $\RG=(S-D)/2$, las ecuaciones restantes son
+\begin{equation}\label{eq:gen3}
+\begin{cases}
+D'=aD+2bJ-2bG,\\[2pt]
+J'=\dfrac c2D+dJ+\dfrac c2S_0e^{at},\\[4pt]
+G'=-\dfrac e2D+fG+\dfrac e2S_0e^{at}.
+\end{cases}
+\end{equation}
+Definimos $W=(D,J,G)^T$ y escribimos:
+\begin{equation}\label{eq:Mq}
+W'=MW+S_0e^{at}q,\qquad
+M=\mat{a&2b&-2b\\\frac c2&d&0\\-\frac e2&0&f},\qquad
+q=\mat{0\\\frac c2\\\frac e2}.
+\end{equation}
+La matriz $M$ tiene polinomio característico
+\begin{equation}\label{eq:cubico}
+\boxed{p(\lambda)=(\lambda-a)(\lambda-d)(\lambda-f)
+-bc(\lambda-f)-be(\lambda-d).}
+\end{equation}
+Los valores propios del modelo original son $\lambda=a$ y las tres raíces de $p(\lambda)=0$. Si $\mu$ es una raíz de $p$ con $\mu\ne d,f$, un vector propio correspondiente de $M$ puede escogerse como
+\begin{equation}\label{eq:vecM}
+K_\mu=\mat{1\\\dfrac{c}{2(\mu-d)}\\-\dfrac{e}{2(\mu-f)}}.
+\end{equation}
+Los casos $\mu=d$ o $\mu=f$ se tratan directamente mediante $(M-\mu I)K=0$.
+
+El sistema \eqref{eq:Mq} es lineal no homogéneo, con término forzante conocido. Por variación de constantes, para $W(0)=W_0$, se obtiene la \textbf{solución analítica general}:
+\begin{equation}\label{eq:varcon}
+\boxed{W(t)=e^{Mt}W_0+S_0\int_0^t e^{M(t-\tau)}q\,e^{a\tau}\,\dd\tau.}
+\end{equation}
+Esta fórmula es válida para todos los valores reales de los seis parámetros, incluso si existen valores propios repetidos. Cuando $aI-M$ es invertible, la integral puede calcularse y la solución adopta la forma cerrada
+\begin{equation}\label{eq:closedgen}
+\boxed{W(t)=e^{Mt}(W_0-S_0h)+S_0e^{at}h,
+\qquad h=(aI-M)^{-1}q.}
+\end{equation}
+Si $M$ posee tres valores propios distintos $\mu_1,\mu_2,\mu_3$, es diagonalizable sobre $\mathbb C$ y puede escribirse $e^{Mt}=Pe^{\Lambda t}P^{-1}$, con $\Lambda=\operatorname{diag}(\mu_1,\mu_2,\mu_3)$ y columnas de $P$ formadas por los correspondientes vectores propios. Si $aI-M$ no es invertible o hay bloques de Jordan, se conserva \eqref{eq:varcon}, que también abarca los términos resonantes $t^ke^{\mu t}$.
+
+Finalmente, puesto que $W(t)=(D(t),J(t),G(t))^T$ y $S(t)=S_0e^{at}$, las cuatro funciones originales se recuperan como
+\begin{equation}\label{eq:rec_final}
+\boxed{\begin{aligned}
+\RJ(t)&=\frac{S_0e^{at}+D(t)}2,&
+\RG(t)&=\frac{S_0e^{at}-D(t)}2,\\
+J(t)&=\bigl[W(t)\bigr]_2,&
+G(t)&=\bigl[W(t)\bigr]_3.
+\end{aligned}}
+\end{equation}
+La expresión \eqref{eq:varcon} completa el caso general; las fórmulas elementales de los apartados anteriores ofrecen una resolución más explícita cuando se impone la simetría $c=e$, $d=f$.
+
+\section*{Conclusiones}
+La suma $S(t)=\RJ(t)+\RG(t)$ se desacopla exactamente para el modelo general, y evoluciona según $S(t)=S_0e^{at}$. Si Julieta y Guinevere presentan parámetros idénticos, el sistema se divide en uno de sumas y otro de diferencias, lo que permite obtener soluciones explícitas mediante factor integrante, valores propios y vectores propios. Para parámetros arbitrarios, la resolución analítica se expresa mediante una matriz exponencial y variación de constantes. En el ejemplo de Sprott, las diferencias oscilan con amplitud creciente, evidenciando la inestabilidad del equilibrio.
+
+\begin{thebibliography}{1}
+\bibitem{Sprott2004}
+Sprott, J. C. (2004). \emph{Dynamical Models of Love}. Nonlinear Dynamics, Psychology, and Life Sciences, 8(3), 303--313.
+\end{thebibliography}
+
+\end{document}

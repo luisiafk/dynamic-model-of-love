@@ -1,0 +1,90 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section{Derivación del Modelo}
+
+\subsection{Modelo lineal simple de dos personas}
+
+Siguiendo la propuesta analítica inicial de Strogatz (1994) y el desarrollo formal de Sprott (2004), la dinámica de una relación romántica puede describirse mediante un sistema de ecuaciones diferenciales ordinarias acopladas. Consideremos un romance entre dos individuos, Romeo y Julieta. Se define:
+
+\begin{itemize}
+    \item $R(t)$: El nivel de amor (o de odio, si adquiere valores negativos) que siente Romeo hacia Julieta en el instante de tiempo $t$.
+    \item $J(t)$: El nivel de amor (o de odio, si adquiere valores negativos) que siente Julieta hacia Romeo en ese mismo instante $t$.
+\end{itemize}
+
+El modelo lineal más simple que gobierna la evolución de estos sentimientos se plantea a través del siguiente sistema de primer orden:
+
+\begin{equation}
+\begin{aligned}
+    \frac{dR}{dt} &= aR + bJ, \\
+    \frac{dJ}{dt} &= cR + dJ.
+\end{aligned}
+\tag{1}
+\end{equation}
+
+\subsection{Significado de los parámetros y estilos románticos}
+
+En el sistema (1), los coeficientes $a$ y $b$ especifican el ``estilo romántico'' de Romeo, mientras que los parámetros $c$ y $d$ determinan el estilo correspondiente a Julieta.
+
+\begin{itemize}
+    \item \textbf{Respuesta a los sentimientos propios ($a$ y $d$):} El parámetro $a$ describe el grado en que Romeo es estimulado o desalentado por sus propios sentimientos. De forma análoga, $d$ representa cómo los sentimientos de Julieta influyen sobre su propia respuesta emocional. Gottman et al. (2002) utilizan el término ``inercia conductual'' para describir este tipo de respuesta.
+
+    \item \textbf{Influencia de los sentimientos de la pareja ($b$ y $c$):} El parámetro $b$ representa el grado en que Romeo se ve motivado o afectado por los sentimientos de Julieta. Por su parte, $c$ describe cómo los sentimientos de Romeo influyen sobre la respuesta emocional de Julieta.
+\end{itemize}
+
+El signo de cada parámetro determina el tipo de respuesta emocional: un valor positivo indica que el sentimiento correspondiente refuerza la variación emocional, mientras que un valor negativo indica que tiende a contrarrestarla.
+
+Dependiendo de los signos algebraicos que adopten los parámetros de respuesta propia e influencia de la pareja, los individuos se clasifican en cuatro arquetipos o \textbf{estilos románticos} fundamentales:
+
+\begin{enumerate}
+    \item \textbf{Eager beaver (Entusiasta):} Ambos parámetros son positivos. El individuo se ve animado tanto por sus propios sentimientos como por los de su pareja.
+
+    \item \textbf{Narcissistic nerd (Nerd narcisista):} El parámetro de respuesta a los sentimientos propios es positivo y el de influencia de la pareja es negativo. El individuo desea intensificar lo que siente, pero se retrae ante las muestras de afecto del otro.
+
+    \item \textbf{Cautious lover (Amante cauteloso o seguro):} El parámetro de respuesta a los sentimientos propios es negativo y el de influencia de la pareja es positivo. El individuo tiende a reprimir sus propios sentimientos, pero se muestra receptivo al afecto de su pareja.
+
+    \item \textbf{Hermit (Ermitaño):} Ambos parámetros son negativos. El individuo se retrae tanto de sus propios sentimientos internos como de los de la otra parte.
+\end{enumerate}
+
+Para Romeo, estos estilos se determinan mediante los signos de los parámetros $(a,b)$, mientras que para Julieta se determinan mediante los signos de $(d,c)$, ya que $d$ representa su respuesta a sus propios sentimientos y $c$ la influencia de los sentimientos de Romeo. Esta distinción permite mantener la correspondencia correcta entre los parámetros y el papel que desempeñan en el sistema (1).
+
+\subsection{Modelo lineal del triángulo amoroso}
+
+El modelo puede extenderse para describir una relación en la que intervienen tres individuos: Romeo, Julieta y Guinevere. En este caso, Romeo mantiene sentimientos hacia ambas personas, mientras que Julieta y Guinevere sienten algo por Romeo.
+
+Se definen las siguientes variables:
+
+\begin{itemize}
+    \item $R_J(t)$: Nivel de amor (o de odio) que siente Romeo hacia Julieta en el instante $t$.
+    \item $J(t)$: Nivel de amor (o de odio) que siente Julieta hacia Romeo en el instante $t$.
+    \item $R_G(t)$: Nivel de amor (o de odio) que siente Romeo hacia Guinevere en el instante $t$.
+    \item $G(t)$: Nivel de amor (o de odio) que siente Guinevere hacia Romeo en el instante $t$.
+\end{itemize}
+
+Siguiendo el modelo propuesto por Sprott (2004), se supone que Romeo mantiene el mismo estilo romántico hacia Julieta y Guinevere. Sin embargo, se introduce un acoplamiento entre ambas relaciones: los sentimientos de Julieta y Guinevere influyen de manera opuesta sobre los sentimientos de Romeo. De esta forma, el sistema queda expresado mediante las siguientes ecuaciones diferenciales:
+
+\begin{equation}
+\begin{aligned}
+    \frac{dR_J}{dt} &= aR_J + b(J-G), \\
+    \frac{dJ}{dt} &= cR_J + dJ, \\
+    \frac{dR_G}{dt} &= aR_G + b(G-J), \\
+    \frac{dG}{dt} &= eR_G + fG.
+\end{aligned}
+\tag{3}
+\end{equation}
+
+En este sistema, los parámetros $a$ y $b$ representan el estilo romántico de Romeo, que se considera idéntico en ambas relaciones. Los parámetros $c$ y $d$ corresponden al estilo de Julieta, mientras que $e$ y $f$ describen el estilo de Guinevere.
+
+El acoplamiento entre los tres individuos se observa principalmente en las ecuaciones que describen los sentimientos de Romeo. En la primera ecuación aparece el término $b(J-G)$, que representa la influencia de los sentimientos de Julieta y Guinevere sobre el amor de Romeo hacia Julieta. En la tercera ecuación aparece el término $b(G-J)$, que representa esa misma influencia sobre sus sentimientos hacia Guinevere. Como puede observarse, ambas influencias tienen signos opuestos.
+
+Por otra parte, Julieta y Guinevere responden a los sentimientos de Romeo hacia cada una de ellas y a sus propios sentimientos, tal como se refleja en las ecuaciones correspondientes. De esta manera, las cuatro variables evolucionan de forma interdependiente, dando lugar a un sistema de cuatro ecuaciones diferenciales acopladas.
+
+Una característica importante de este modelo es que Romeo adopta el mismo estilo romántico hacia ambas personas, por lo que las influencias cruzadas de Julieta y Guinevere se cancelan al considerar la suma de sus sentimientos, $R_J+R_G$. En consecuencia, según el modelo, esta suma crece sin límite si $a>0$ o decae si $a<0$, independientemente de los demás parámetros. Esto no significa que sus sentimientos hacia ambas personas sean iguales, sino que pueden evolucionar de manera diferente según las características de cada relación.
+
+\end{document}
