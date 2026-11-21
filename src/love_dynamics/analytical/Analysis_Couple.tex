@@ -67,11 +67,7 @@ J
 \end{pmatrix}.
 \end{equation}
 
-Para solucionar el sistema anterior como un problema de valor inicial, se consideran las condiciones iniciales:
-
-\[
-R(0)=R_0,\qquad J(0)=J_0.
-\]
+Para solucionar el sistema anterior como un problema de valor inicial, se consideran las condiciones iniciales $R(0)=R_0, J(0)=J_0$.
 %---------------------------------------------Equilibrio---------------------------------------------
 \subsection{Soluciones de Equilibrio}
 
@@ -79,8 +75,8 @@ En el equilibrio se cumple $R'=J'=0$, por lo que
 
 \[
 \begin{cases}
-aR^*+bJ^*=0,\\
-cR^*+dJ^*=0.
+aR^*+bJ^*=0\\
+cR^*+dJ^*=0
 \end{cases}
 \]
 
@@ -136,7 +132,7 @@ Si $\Delta>0$ la matriz tiene dos valores propios reales distintos:
 \frac{a+d+\sqrt{\Delta}}{2},
 \qquad
 \lambda_2=
-\frac{a+d-\sqrt{\Delta}}{2}.
+\frac{a+d-\sqrt{\Delta}}{2}
 \]
 
 Suponiendo $b\neq 0$, un vector propio asociado a cada valor propio puede escribirse como
@@ -152,14 +148,14 @@ K_2=
 \begin{pmatrix}
 1\\
 \dfrac{\lambda_2-a}{b}
-\end{pmatrix}.
+\end{pmatrix}
 \]
 
 La solución general es
 
 \[
 Y(t)=C_1e^{\lambda_1t}K_1
-+C_2e^{\lambda_2t}K_2.
++C_2e^{\lambda_2t}K_2
 \]
 
 Por lo tanto,
@@ -175,7 +171,7 @@ y
 J(t)=
 \frac{\lambda_1-a}{b}C_1e^{\lambda_1t}
 +
-\frac{\lambda_2-a}{b}C_2e^{\lambda_2t}.
+\frac{\lambda_2-a}{b}C_2e^{\lambda_2t}
 \]
 
 Utilizando las condiciones iniciales,
@@ -188,7 +184,7 @@ R_0=C_1+C_2,
 J_0=
 \frac{\lambda_1-a}{b}C_1
 +
-\frac{\lambda_2-a}{b}C_2.
+\frac{\lambda_2-a}{b}C_2
 \]
 
 Resolviendo el sistema para las constantes:
@@ -202,7 +198,7 @@ C_1=
 \[
 C_2=
 \frac{(\lambda_1-a)R_0-bJ_0}
-{\lambda_1-\lambda_2}.
+{\lambda_1-\lambda_2}
 \]
 
 Como
@@ -227,7 +223,7 @@ y
 \boxed{
 C_2=
 \frac{(\lambda_1-a)R_0-bJ_0}
-{\sqrt{\Delta}}.
+{\sqrt{\Delta}}
 }
 \]
 
@@ -256,7 +252,7 @@ e^{\lambda_1t}\\
 &+
 \frac{\lambda_2-a}{b}
 \frac{(\lambda_1-a)R_0-bJ_0}{\sqrt{\Delta}}
-e^{\lambda_2t}.
+e^{\lambda_2t}
 \end{aligned}
 }
 \]
@@ -281,13 +277,13 @@ N=
 \begin{pmatrix}
 \dfrac{a-d}{2}&b\\[4pt]
 c&-\dfrac{a-d}{2}
-\end{pmatrix}.
+\end{pmatrix}
 \]
 
 Como el valor propio es doble, se cumple $N^2=0$. La solución del sistema es
 
 \[
-Y(t)=e^{\lambda t}(I+tN)Y(0).
+Y(t)=e^{\lambda t}(I+tN)Y(0)
 \]
 
 Al desarrollar la expresión matricial:
@@ -306,7 +302,7 @@ ct&1-\dfrac{a-d}{2}t
 \begin{pmatrix}
 R_0\\
 J_0
-\end{pmatrix}.
+\end{pmatrix}
 \]
 
 Por lo tanto,
@@ -331,7 +327,7 @@ J(t)=e^{\lambda t}
 J_0+t\left(
 cR_0-\frac{a-d}{2}J_0
 \right)
-\right].
+\right]
 }
 \]
 
@@ -340,7 +336,7 @@ Si $A=\lambda I$, las expresiones se reducen a
 \[
 R(t)=R_0e^{\lambda t},
 \qquad
-J(t)=J_0e^{\lambda t}.
+J(t)=J_0e^{\lambda t}
 \]
 %---------------------------------------------Valores propios complejos---------------------------------------------
 \subsection{Caso 3: $\Delta < 0 \Rightarrow$ Valores propios complejos}
@@ -356,16 +352,16 @@ Y_1(t)=e^{\alpha t}
 
 \begin{equation}
 Y_2(t)=e^{\alpha t}
-(B_1\sin(\beta t)+B_2\cos(\beta t)).
+(B_1\sin(\beta t)+B_2\cos(\beta t))
 \end{equation}
 
 Por tanto, la solución general es:
 
 \begin{equation}
-Y(t)=c_1Y_1(t)+c_2Y_2(t).
+Y(t)=c_1Y_1(t)+c_2Y_2(t)
 \end{equation}
 
-Para la primera variable:
+Para la primera variable ($\beta \neq 0$):
 
 \[
 \boxed{
@@ -377,11 +373,11 @@ R_0\cos(\beta t)
 \dfrac{a-d}{2}R_0+bJ_0
 }{\beta}
 \sin(\beta t)
-\right].
+\right]
 }
 \]
 
-Para la segunda variable:
+Para la segunda variable ($\beta \neq 0$):
 
 \[
 \boxed{
@@ -393,7 +389,7 @@ J_0\cos(\beta t)
 cR_0-\dfrac{a-d}{2}J_0
 }{\beta}
 \sin(\beta t)
-\right].
+\right]
 }
 \]
 
@@ -420,7 +416,7 @@ El sistema queda
 \boxed{
 \begin{cases}
 R'=bJ,\\
-J'=cR.
+J'=cR
 \end{cases}
 }
 \]
@@ -437,7 +433,7 @@ R(t)=C_1e^{st}+C_2e^{-st},
 
 \[
 J(t)=\frac{s}{b}C_1e^{st}
--\frac{s}{b}C_2e^{-st}.
+-\frac{s}{b}C_2e^{-st}
 \]
 
 Aplicando las condiciones iniciales:
@@ -447,7 +443,7 @@ R_0=C_1+C_2,
 \]
 
 \[
-J_0=\frac{s}{b}C_1-\frac{s}{b}C_2.
+J_0=\frac{s}{b}C_1-\frac{s}{b}C_2
 \]
 
 De aquí se obtiene
@@ -468,12 +464,10 @@ Sustituyendo las constantes:
 R(t)={}&
 \frac12\left(R_0+\frac{bJ_0}{s}\right)e^{st}\\
 &+
-\frac12\left(R_0-\frac{bJ_0}{s}\right)e^{-st}.
+\frac12\left(R_0-\frac{bJ_0}{s}\right)e^{-st}
 \end{aligned}
 }
 \]
-
-Para $J(t)$:
 
 \[
 \boxed{
@@ -481,7 +475,7 @@ Para $J(t)$:
 J(t)={}&
 \frac12\left(J_0+\frac{cR_0}{s}\right)e^{st}\\
 &+
-\frac12\left(J_0-\frac{cR_0}{s}\right)e^{-st}.
+\frac12\left(J_0-\frac{cR_0}{s}\right)e^{-st}
 \end{aligned}
 }
 \]
@@ -499,12 +493,10 @@ R(t)=R_0\cos(\omega t)
 }
 \]
 
-y
-
 \[
 \boxed{
 J(t)=J_0\cos(\omega t)
-+\frac{cR_0}{\omega}\sin(\omega t).
++\frac{cR_0}{\omega}\sin(\omega t)
 }
 \]
 
@@ -512,22 +504,7 @@ En este caso, el equilibrio es un centro y las trayectorias son periódicas.
 
 \subsubsection{Caso 3: $bc=0$}
 
-Los dos valores propios son iguales a cero. Entonces las soluciones son
-
-\[
-\boxed{
-R(t)=R_0+btJ_0
-}
-\]
-
-y
-
-\[
-\boxed{
-J(t)=J_0+ctR_0.
-}
-\]
-
+Los dos valores propios son iguales a cero. Entonces las soluciones son $(t)=R_0+btJ_0$ y $J(t)=J_0+ctR_0$.
 Se trata de un caso degenerado.
 
 \subsection{Caso 2: Fire and Ice ($c = -b$ y $a = -d$)}
@@ -539,7 +516,7 @@ El sistema queda
 \boxed{
 \begin{cases}
 R'=aR+bJ,\\
-J'=-bR-aJ.
+J'=-bR-aJ
 \end{cases}
 }
 \]
@@ -562,8 +539,8 @@ J(t)=
 
 cuando $b\neq 0$.
 
-Aplicando las condiciones iniciales, se obtiene la
-siguiente expresión explícita:
+Aplicando las condiciones iniciales, se obtienen las
+siguientes expresiones explícitas:
 
 \[
 \boxed{
@@ -575,12 +552,10 @@ R_0+\frac{aR_0+bJ_0}{s}
 &+
 \frac12\left[
 R_0-\frac{aR_0+bJ_0}{s}
-\right]e^{-st}.
+\right]e^{-st}
 \end{aligned}
 }
 \]
-
-Para la segunda variable:
 
 \[
 \boxed{
@@ -592,7 +567,7 @@ J_0-\frac{bR_0+aJ_0}{s}
 &+
 \frac12\left[
 J_0+\frac{bR_0+aJ_0}{s}
-\right]e^{-st}.
+\right]e^{-st}
 \end{aligned}
 }
 \]
@@ -612,14 +587,12 @@ R(t)=R_0\cos(\omega t)
 }
 \]
 
-y
-
 \[
 \boxed{
 J(t)=J_0\cos(\omega t)
 -
 \frac{bR_0+aJ_0}{\omega}
-\sin(\omega t).
+\sin(\omega t)
 }
 \]
 
@@ -627,22 +600,7 @@ En este caso, el equilibrio es un centro.
 
 \subsubsection{Caso 3: $a^2=b^2$}
 
-Los dos valores propios son cero. Las soluciones son
-
-\[
-\boxed{
-R(t)=R_0+t(aR_0+bJ_0)
-}
-\]
-
-y
-
-\[
-\boxed{
-J(t)=J_0-t(bR_0+aJ_0).
-}
-\]
-
+Los dos valores propios son cero. Las soluciones son $R(t)=R_0+t(aR_0+bJ_0)$ y $J(t)=J_0-t(bR_0+aJ_0)$.
 Se obtiene un caso degenerado.
 
 \subsection{Caso 3: Peas in a Pod ($c = b$ y $a = d$)}
@@ -653,7 +611,7 @@ Este caso consiste en que Romeo y Julieta son idénticos en su manera de respond
 \boxed{
 \begin{cases}
 R'=aR+bJ,\\
-J'=bR+aJ.
+J'=bR+aJ
 \end{cases}
 }
 \]
@@ -671,7 +629,7 @@ K_2=
 \begin{pmatrix}
 1\\
 -1
-\end{pmatrix}.
+\end{pmatrix}
 \]
 
 La solución general es
@@ -688,7 +646,7 @@ C_2e^{(a-b)t}
 \begin{pmatrix}
 1\\
 -1
-\end{pmatrix}.
+\end{pmatrix}
 \]
 
 Por componentes:
@@ -700,7 +658,7 @@ R(t)=C_1e^{(a+b)t}
 
 \[
 J(t)=C_1e^{(a+b)t}
--C_2e^{(a-b)t}.
+-C_2e^{(a-b)t}
 \]
 
 Aplicando las condiciones iniciales:
@@ -710,7 +668,7 @@ R_0=C_1+C_2,
 \]
 
 \[
-J_0=C_1-C_2.
+J_0=C_1-C_2
 \]
 
 Sumando y restando estas ecuaciones:
@@ -718,7 +676,7 @@ Sumando y restando estas ecuaciones:
 \[
 C_1=\frac{R_0+J_0}{2},
 \qquad
-C_2=\frac{R_0-J_0}{2}.
+C_2=\frac{R_0-J_0}{2}
 \]
 
 Por lo tanto, las soluciones explícitas son
@@ -732,14 +690,12 @@ R(t)=
 }
 \]
 
-y
-
 \[
 \boxed{
 J(t)=
 \frac{R_0+J_0}{2}e^{(a+b)t}
 -
-\frac{R_0-J_0}{2}e^{(a-b)t}.
+\frac{R_0-J_0}{2}e^{(a-b)t}
 }
 \]
 
